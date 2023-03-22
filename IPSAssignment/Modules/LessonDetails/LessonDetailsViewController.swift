@@ -106,6 +106,7 @@ class LessonDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewsConstraints()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -140,11 +141,12 @@ private extension LessonDetailsViewController {
     
     @objc private func downloadButtonTapped() {
         print("Downlaoding...")
+        showDownloadingProgressAlert()
     }
 }
 
 
-// MARK: - Private Handlers
+// MARK: - Configurations
 
 private extension LessonDetailsViewController {
     
@@ -228,5 +230,36 @@ private extension LessonDetailsViewController {
             downloadVideoButton.heightAnchor.constraint(equalToConstant: 40),
             downloadVideoButton.widthAnchor.constraint(equalToConstant: 160)
         ])
+    }
+}
+
+// MARK: - Private Handlers
+
+private extension LessonDetailsViewController {
+    func showDownloadingProgressAlert() {
+        let alertController = UIAlertController(title: "Downloading...🚀", message: nil, preferredStyle: .alert)
+        let progressBar : UIProgressView = UIProgressView(progressViewStyle: .default)
+        progressBar.setProgress(0, animated: true)
+        progressBar.frame = CGRect(x: 0, y: 58, width: 270, height: 0)
+        alertController.view.addSubview(progressBar)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            // Handle cancel action
+        }
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true) {
+            let totalSize = 100 // Total size of the file to be downloaded
+            var downloadedSize = 0 // Current downloaded size
+            
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+                if downloadedSize >= totalSize {
+                    timer.invalidate()
+                    alertController.dismiss(animated: true, completion: nil)
+                } else {
+                    downloadedSize += 1
+                    let progress = Float(downloadedSize) / Float(totalSize)
+                    progressBar.setProgress(progress, animated: true)
+                }
+            }
+        }
     }
 }
