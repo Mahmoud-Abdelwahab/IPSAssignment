@@ -10,7 +10,7 @@ import CoreData
 
 struct LessonsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LessonEntity.title, ascending: true)],
         animation: .default)
@@ -19,8 +19,8 @@ struct LessonsView: View {
         NavigationStack {
             List(0..<10) { _ in
                 ZStack(alignment: .leading) {
-                    NavigationLink(destination:
-                                    Text("Hello")
+                    NavigationLink(destination: LessonDetailsWrapper()
+                        .background(IPSColors.mainBackgroundColor)
                         .navigationBarTitleDisplayMode(.inline)) {
                             EmptyView()
                         }.opacity(0.0)
@@ -32,9 +32,9 @@ struct LessonsView: View {
             .background(IPSColors.mainBackgroundColor)
             .navigationTitle("Lessons")
         }
-
+        
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = LessonEntity(context: viewContext)
@@ -49,11 +49,11 @@ struct LessonsView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {
