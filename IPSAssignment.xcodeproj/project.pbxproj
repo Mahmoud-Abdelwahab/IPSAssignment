@@ -14,6 +14,8 @@
 		292E68D229CB328100BB8293 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D129CB328100BB8293 /* Asset.swift */; };
 		292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D329CB32AB00BB8293 /* IPSColors.swift */; };
 		292E68D629CB33F100BB8293 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D529CB33F100BB8293 /* Lesson.swift */; };
+		292E68DA29CB374700BB8293 /* LessonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */; };
+		292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		292E68D129CB328100BB8293 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		292E68D329CB32AB00BB8293 /* IPSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSColors.swift; sourceTree = "<group>"; };
 		292E68D529CB33F100BB8293 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsViewController.swift; sourceTree = "<group>"; };
+		292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsWrapper.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 		292E68BB29CB24C200BB8293 /* LessonDetails */ = {
 			isa = PBXGroup;
 			children = (
+				292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */,
+				292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */,
 			);
 			path = LessonDetails;
 			sourceTree = "<group>";
@@ -366,6 +372,8 @@
 				292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */,
 				292E68D229CB328100BB8293 /* Asset.swift in Sources */,
 				292E68CE29CB30B000BB8293 /* UIColor+Extension.swift in Sources */,
+				292E68DA29CB374700BB8293 /* LessonDetailsViewController.swift in Sources */,
+				292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */,
 				29E7CE8129CA646D00C873CC /* Persistence.swift in Sources */,
 				29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */,
 				292E68D629CB33F100BB8293 /* Lesson.swift in Sources */,
