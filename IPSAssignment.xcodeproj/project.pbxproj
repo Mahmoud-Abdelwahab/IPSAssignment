@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		292E68BE29CB253F00BB8293 /* LessonCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68BD29CB253F00BB8293 /* LessonCellView.swift */; };
 		292E68C129CB25A000BB8293 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 292E68C029CB25A000BB8293 /* Kingfisher */; };
+		292E68C829CB2C9500BB8293 /* LessonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68C729CB2C9500BB8293 /* LessonsViewModel.swift */; };
+		292E68CE29CB30B000BB8293 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68CD29CB30B000BB8293 /* UIColor+Extension.swift */; };
+		292E68D229CB328100BB8293 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D129CB328100BB8293 /* Asset.swift */; };
+		292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D329CB32AB00BB8293 /* IPSColors.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -40,6 +44,10 @@
 /* Begin PBXFileReference section */
 		292E68B829CA729300BB8293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		292E68BD29CB253F00BB8293 /* LessonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCellView.swift; sourceTree = "<group>"; };
+		292E68C729CB2C9500BB8293 /* LessonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsViewModel.swift; sourceTree = "<group>"; };
+		292E68CD29CB30B000BB8293 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		292E68D129CB328100BB8293 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		292E68D329CB32AB00BB8293 /* IPSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSColors.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -92,6 +100,8 @@
 		292E68BA29CB24AF00BB8293 /* Lessons */ = {
 			isa = PBXGroup;
 			children = (
+				292E68C929CB2CBB00BB8293 /* Entity */,
+				292E68C629CB2AD200BB8293 /* ViewModel */,
 				292E68BC29CB24DA00BB8293 /* Views */,
 			);
 			path = Lessons;
@@ -124,8 +134,34 @@
 		292E68C329CB266000BB8293 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				292E68CC29CB309E00BB8293 /* Extensions */,
+				292E68D129CB328100BB8293 /* Asset.swift */,
+				292E68D329CB32AB00BB8293 /* IPSColors.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		292E68C629CB2AD200BB8293 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				292E68C729CB2C9500BB8293 /* LessonsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		292E68C929CB2CBB00BB8293 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		292E68CC29CB309E00BB8293 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				292E68CD29CB30B000BB8293 /* UIColor+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		29E7CE6B29CA646A00C873CC = {
@@ -324,10 +360,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */,
+				292E68D229CB328100BB8293 /* Asset.swift in Sources */,
+				292E68CE29CB30B000BB8293 /* UIColor+Extension.swift in Sources */,
 				29E7CE8129CA646D00C873CC /* Persistence.swift in Sources */,
 				29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */,
 				29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */,
 				29E7CE8429CA646D00C873CC /* IPSAssignment.xcdatamodeld in Sources */,
+				292E68C829CB2C9500BB8293 /* LessonsViewModel.swift in Sources */,
 				292E68BE29CB253F00BB8293 /* LessonCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
