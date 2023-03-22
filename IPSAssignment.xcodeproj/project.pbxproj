@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		292E68B829CA729300BB8293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		29E7CE7629CA646B00C873CC /* IPSAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				292E68B829CA729300BB8293 /* Info.plist */,
 				29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */,
 				29E7CE7929CA646B00C873CC /* ContentView.swift */,
 				29E7CE7B29CA646D00C873CC /* Assets.xcassets */,
@@ -427,6 +429,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"IPSAssignment/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IPSAssignment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -455,6 +458,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"IPSAssignment/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IPSAssignment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
