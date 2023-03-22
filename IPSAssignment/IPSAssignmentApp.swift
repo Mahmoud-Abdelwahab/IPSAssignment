@@ -13,7 +13,7 @@ struct IPSAssignmentApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LessonsView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
