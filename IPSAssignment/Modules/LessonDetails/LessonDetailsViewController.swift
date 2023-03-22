@@ -7,6 +7,8 @@
 
 import UIKit
 import Kingfisher
+import AVFoundation
+import AVKit
 
 class LessonDetailsViewController: UIViewController {
 
@@ -114,17 +116,6 @@ class LessonDetailsViewController: UIViewController {
         super.viewWillDisappear(animated)
         downloadVideoButton.removeFromSuperview()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK: - Actions
@@ -132,7 +123,7 @@ class LessonDetailsViewController: UIViewController {
 private extension LessonDetailsViewController {
     @objc private func openVideoPlayerView() {
         // TODO: - Open video player view
-        print("Open video")
+        presentVideoPlayer(with: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!)
     }
     
     @objc private func nextLessonButtonTapped() {
@@ -261,5 +252,13 @@ private extension LessonDetailsViewController {
                 }
             }
         }
+    }
+    
+    private func presentVideoPlayer(with url: URL) {
+        let player = AVPlayer(url: url)
+        let vc = AVPlayerViewController()
+        vc.player = player
+        vc.player?.play()
+        self.present(vc, animated: true)
     }
 }
