@@ -10,7 +10,7 @@ import Kingfisher
 
 class LessonDetailsViewController: UIViewController {
 
-    // MARK: Properties
+    // MARK: UI Elements
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -29,13 +29,41 @@ class LessonDetailsViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var playButton: UIButton = {
+    private lazy var videoPlayButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "play.fill"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = .white.withAlphaComponent(0.8)
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 48), forImageIn: .normal)
         button.addTarget(self, action: #selector(openVideoPlayerView), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Next lesson", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = "Next lesson"
+        configuration.image = UIImage(systemName: "chevron.right")
+        configuration.imagePadding = 4
+        configuration.imagePlacement = .trailing
+        button.configuration = configuration
+        button.addTarget(self, action: #selector(nextLessonButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var downloadVideoButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.tintColor, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = "Download"
+        configuration.image = UIImage(systemName: "icloud.and.arrow.down")
+        configuration.imagePadding = 6
+        button.configuration = configuration
+        button.addTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -54,22 +82,7 @@ class LessonDetailsViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    
-    private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Next lesson", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        var configuration = UIButton.Configuration.plain()
-        configuration.title = "Next lesson"
-        configuration.image = UIImage(systemName: "chevron.right")
-        configuration.imagePadding = 4
-        configuration.imagePlacement = .trailing
-        button.configuration = configuration
-        button.addTarget(self, action: #selector(nextLessonButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
+
     private lazy var nextButtonContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -84,6 +97,10 @@ class LessonDetailsViewController: UIViewController {
         stackView.spacing   = 16.0
         return stackView
     }()
+    
+    // MARK: Properties
+    
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -92,6 +109,10 @@ class LessonDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        downloadVideoButton.removeFromSuperview()
+    }
 
     /*
     // MARK: - Navigation
@@ -116,6 +137,10 @@ private extension LessonDetailsViewController {
     @objc private func nextLessonButtonTapped() {
         print("Next Tapped")
     }
+    
+    @objc private func downloadButtonTapped() {
+        print("Downlaoding...")
+    }
 }
 
 
@@ -131,12 +156,13 @@ private extension LessonDetailsViewController {
         setupMainVideoImageViewConstraint()
         setupNextButtonConstraint()
         setupPlayVideoButtonConstraint()
+        setupDownloadVideoButtonConstraint()
     }
     
     private func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
-        containerView.addSubviews(videoImageView, playButton, stackView)
+        containerView.addSubviews(videoImageView, videoPlayButton, stackView)
         nextButtonContainerView.addSubview(nextButton)
     }
     
@@ -181,12 +207,26 @@ private extension LessonDetailsViewController {
     }
     
     private func setupPlayVideoButtonConstraint() {
-        playButton.translatesAutoresizingMaskIntoConstraints = false
+        videoPlayButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            playButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
-            playButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
-            playButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
-            playButton.heightAnchor.constraint(equalToConstant: 230.0)
+            videoPlayButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
+            videoPlayButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
+            videoPlayButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
+            videoPlayButton.heightAnchor.constraint(equalToConstant: 230.0)
+        ])
+    }
+    
+    private func setupDownloadVideoButtonConstraint() {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let rootView = windowScene?.windows.first?.rootViewController?.view
+        downloadVideoButton.translatesAutoresizingMaskIntoConstraints = false
+        rootView?.addSubview(downloadVideoButton)
+        NSLayoutConstraint.activate([
+            downloadVideoButton.topAnchor.constraint(equalTo: rootView!.topAnchor, constant: 59),
+            downloadVideoButton.trailingAnchor.constraint(equalTo: rootView!.trailingAnchor, constant: 16),
+            downloadVideoButton.heightAnchor.constraint(equalToConstant: 40),
+            downloadVideoButton.widthAnchor.constraint(equalToConstant: 160)
         ])
     }
 }
