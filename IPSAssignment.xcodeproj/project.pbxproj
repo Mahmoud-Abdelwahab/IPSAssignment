@@ -17,6 +17,8 @@
 		292E68DA29CB374700BB8293 /* LessonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */; };
 		292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */; };
 		292E68DE29CB39D900BB8293 /*  UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68DD29CB39D900BB8293 /*  UIView+Extension.swift */; };
+		292E68E429CB989300BB8293 /* LessonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68E329CB989300BB8293 /* LessonDetailsViewModel.swift */; };
+		292E68E629CB9EC600BB8293 /* LessonsMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68E529CB9EC600BB8293 /* LessonsMocks.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsViewController.swift; sourceTree = "<group>"; };
 		292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsWrapper.swift; sourceTree = "<group>"; };
 		292E68DD29CB39D900BB8293 /*  UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " UIView+Extension.swift"; sourceTree = "<group>"; };
+		292E68E329CB989300BB8293 /* LessonDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsViewModel.swift; sourceTree = "<group>"; };
+		292E68E529CB9EC600BB8293 /* LessonsMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsMocks.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 		292E68BA29CB24AF00BB8293 /* Lessons */ = {
 			isa = PBXGroup;
 			children = (
+				292E68EA29CC5AB300BB8293 /* PresentationLayer */,
 				292E68C929CB2CBB00BB8293 /* Entity */,
 				292E68C629CB2AD200BB8293 /* ViewModel */,
 				292E68BC29CB24DA00BB8293 /* Views */,
@@ -118,6 +123,8 @@
 		292E68BB29CB24C200BB8293 /* LessonDetails */ = {
 			isa = PBXGroup;
 			children = (
+				292E68E229CB988100BB8293 /* ViewModel */,
+				292E68E129CB987200BB8293 /* Views */,
 				292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */,
 				292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */,
 			);
@@ -163,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				292E68D529CB33F100BB8293 /* Lesson.swift */,
+				292E68E529CB9EC600BB8293 /* LessonsMocks.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -174,6 +182,28 @@
 				292E68DD29CB39D900BB8293 /*  UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		292E68E129CB987200BB8293 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		292E68E229CB988100BB8293 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				292E68E329CB989300BB8293 /* LessonDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		292E68EA29CC5AB300BB8293 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
 		29E7CE6B29CA646A00C873CC = {
@@ -372,6 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				292E68E629CB9EC600BB8293 /* LessonsMocks.swift in Sources */,
 				292E68DE29CB39D900BB8293 /*  UIView+Extension.swift in Sources */,
 				292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */,
 				292E68D229CB328100BB8293 /* Asset.swift in Sources */,
@@ -385,6 +416,7 @@
 				29E7CE8429CA646D00C873CC /* IPSAssignment.xcdatamodeld in Sources */,
 				292E68C829CB2C9500BB8293 /* LessonsViewModel.swift in Sources */,
 				292E68BE29CB253F00BB8293 /* LessonCellView.swift in Sources */,
+				292E68E429CB989300BB8293 /* LessonDetailsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

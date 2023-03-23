@@ -17,14 +17,14 @@ struct LessonsView: View {
     private var items: FetchedResults<LessonEntity>
     var body: some View {
         NavigationStack {
-            List(0..<10) { _ in
+            List(LessonsMocks.lessons, id: \.self) { lesson in
                 ZStack(alignment: .leading) {
                     NavigationLink(destination: LessonDetailsWrapper()
                         .background(IPSColors.mainBackgroundColor)
                         .navigationBarTitleDisplayMode(.inline)) {
                             EmptyView()
                         }.opacity(0.0)
-                    LessonCellView(url: URL(string: "https://ipsmedia.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb9fd02c6-f567-4e17-8bb0-27e1b07f33a6%2FiOS-design.png?id=5743fac0-7002-409a-8364-eede144c4a9a&table=block&spaceId=18c2b86f-5f00-4ff1-baf7-6be563e77c7d&width=2000&userId=&cache=v2")!)
+                    LessonCellView(url: lesson.thumbnailURL)
                 }
             }
             .listStyle(.grouped)
