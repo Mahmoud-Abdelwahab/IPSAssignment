@@ -9,7 +9,7 @@ import Foundation
 
 /// This struct represent the main lesson entity
 ///
-struct Lesson: Identifiable, Hashable {
+struct LessonViewModel: Identifiable, Hashable {
     let id = UUID()
     let title: String
     let description: String

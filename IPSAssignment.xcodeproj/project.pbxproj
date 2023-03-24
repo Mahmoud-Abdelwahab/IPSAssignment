@@ -13,12 +13,23 @@
 		292E68CE29CB30B000BB8293 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68CD29CB30B000BB8293 /* UIColor+Extension.swift */; };
 		292E68D229CB328100BB8293 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D129CB328100BB8293 /* Asset.swift */; };
 		292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D329CB32AB00BB8293 /* IPSColors.swift */; };
-		292E68D629CB33F100BB8293 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D529CB33F100BB8293 /* Lesson.swift */; };
+		292E68D629CB33F100BB8293 /* LessonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D529CB33F100BB8293 /* LessonViewModel.swift */; };
 		292E68DA29CB374700BB8293 /* LessonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */; };
 		292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */; };
 		292E68DE29CB39D900BB8293 /*  UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68DD29CB39D900BB8293 /*  UIView+Extension.swift */; };
 		292E68E429CB989300BB8293 /* LessonDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68E329CB989300BB8293 /* LessonDetailsViewModel.swift */; };
 		292E68E629CB9EC600BB8293 /* LessonsMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E68E529CB9EC600BB8293 /* LessonsMocks.swift */; };
+		298DD2BE29CD4B8D00DC6884 /* LessonsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2BD29CD4B8D00DC6884 /* LessonsUseCase.swift */; };
+		298DD2C329CD4D5200DC6884 /* LessonsRepositoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2C229CD4D5200DC6884 /* LessonsRepositoryProtocols.swift */; };
+		298DD2C629CD4DCA00DC6884 /* LessonsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2C529CD4DCA00DC6884 /* LessonsRepository.swift */; };
+		298DD2C829CD4F5D00DC6884 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2C729CD4F5D00DC6884 /* Lesson.swift */; };
+		298DD2CC29CD50D500DC6884 /* LessonsRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2CB29CD50D500DC6884 /* LessonsRemoteDataSource.swift */; };
+		298DD2CF29CD50F700DC6884 /* LessonsLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2CE29CD50F700DC6884 /* LessonsLocalDataSource.swift */; };
+		298DD2D129CD51A300DC6884 /* LessonsDataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2D029CD51A300DC6884 /* LessonsDataSourceType.swift */; };
+		298DD2D429CD54DF00DC6884 /* IPSErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2D329CD54DF00DC6884 /* IPSErrors.swift */; };
+		298DD2D629CD55E100DC6884 /* LessonsRespons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2D529CD55E100DC6884 /* LessonsRespons.swift */; };
+		298DD2D829CD577F00DC6884 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2D729CD577F00DC6884 /* Constants.swift */; };
+		298DD2DB29CD722F00DC6884 /* LessonsResponsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2DA29CD722F00DC6884 /* LessonsResponsMapper.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -54,12 +65,23 @@
 		292E68CD29CB30B000BB8293 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		292E68D129CB328100BB8293 /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		292E68D329CB32AB00BB8293 /* IPSColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSColors.swift; sourceTree = "<group>"; };
-		292E68D529CB33F100BB8293 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		292E68D529CB33F100BB8293 /* LessonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewModel.swift; sourceTree = "<group>"; };
 		292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsViewController.swift; sourceTree = "<group>"; };
 		292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsWrapper.swift; sourceTree = "<group>"; };
 		292E68DD29CB39D900BB8293 /*  UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " UIView+Extension.swift"; sourceTree = "<group>"; };
 		292E68E329CB989300BB8293 /* LessonDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsViewModel.swift; sourceTree = "<group>"; };
 		292E68E529CB9EC600BB8293 /* LessonsMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsMocks.swift; sourceTree = "<group>"; };
+		298DD2BD29CD4B8D00DC6884 /* LessonsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsUseCase.swift; sourceTree = "<group>"; };
+		298DD2C229CD4D5200DC6884 /* LessonsRepositoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRepositoryProtocols.swift; sourceTree = "<group>"; };
+		298DD2C529CD4DCA00DC6884 /* LessonsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRepository.swift; sourceTree = "<group>"; };
+		298DD2C729CD4F5D00DC6884 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		298DD2CB29CD50D500DC6884 /* LessonsRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRemoteDataSource.swift; sourceTree = "<group>"; };
+		298DD2CE29CD50F700DC6884 /* LessonsLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsLocalDataSource.swift; sourceTree = "<group>"; };
+		298DD2D029CD51A300DC6884 /* LessonsDataSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsDataSourceType.swift; sourceTree = "<group>"; };
+		298DD2D329CD54DF00DC6884 /* IPSErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSErrors.swift; sourceTree = "<group>"; };
+		298DD2D529CD55E100DC6884 /* LessonsRespons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRespons.swift; sourceTree = "<group>"; };
+		298DD2D729CD577F00DC6884 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		298DD2DA29CD722F00DC6884 /* LessonsResponsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsResponsMapper.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -113,9 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				292E68EA29CC5AB300BB8293 /* PresentationLayer */,
-				292E68C929CB2CBB00BB8293 /* Entity */,
-				292E68C629CB2AD200BB8293 /* ViewModel */,
-				292E68BC29CB24DA00BB8293 /* Views */,
+				298DD2BB29CD4B4D00DC6884 /* Domain */,
+				298DD2BC29CD4B5A00DC6884 /* Data */,
 			);
 			path = Lessons;
 			sourceTree = "<group>";
@@ -154,6 +175,8 @@
 				292E68CC29CB309E00BB8293 /* Extensions */,
 				292E68D129CB328100BB8293 /* Asset.swift */,
 				292E68D329CB32AB00BB8293 /* IPSColors.swift */,
+				298DD2D329CD54DF00DC6884 /* IPSErrors.swift */,
+				298DD2D729CD577F00DC6884 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -169,7 +192,7 @@
 		292E68C929CB2CBB00BB8293 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				292E68D529CB33F100BB8293 /* Lesson.swift */,
+				292E68D529CB33F100BB8293 /* LessonViewModel.swift */,
 				292E68E529CB9EC600BB8293 /* LessonsMocks.swift */,
 			);
 			path = Entity;
@@ -202,8 +225,106 @@
 		292E68EA29CC5AB300BB8293 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				292E68BC29CB24DA00BB8293 /* Views */,
+				292E68C629CB2AD200BB8293 /* ViewModel */,
+				292E68C929CB2CBB00BB8293 /* Entity */,
 			);
 			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		298DD2BB29CD4B4D00DC6884 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2C029CD4C9C00DC6884 /* Entites */,
+				298DD2BF29CD4C8F00DC6884 /* UseCase */,
+				298DD2C129CD4D1700DC6884 /* Repositories */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		298DD2BC29CD4B5A00DC6884 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2D929CD720F00DC6884 /* Mappers */,
+				298DD2C429CD4DA800DC6884 /* Repositories */,
+				298DD2C929CD50AA00DC6884 /* DataSource */,
+				298DD2D229CD54B200DC6884 /* Models */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		298DD2BF29CD4C8F00DC6884 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2BD29CD4B8D00DC6884 /* LessonsUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		298DD2C029CD4C9C00DC6884 /* Entites */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2C729CD4F5D00DC6884 /* Lesson.swift */,
+			);
+			path = Entites;
+			sourceTree = "<group>";
+		};
+		298DD2C129CD4D1700DC6884 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2C229CD4D5200DC6884 /* LessonsRepositoryProtocols.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		298DD2C429CD4DA800DC6884 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2C529CD4DCA00DC6884 /* LessonsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		298DD2C929CD50AA00DC6884 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2D029CD51A300DC6884 /* LessonsDataSourceType.swift */,
+				298DD2CD29CD50DB00DC6884 /* Local */,
+				298DD2CA29CD50B500DC6884 /* Remote */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		298DD2CA29CD50B500DC6884 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2CB29CD50D500DC6884 /* LessonsRemoteDataSource.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		298DD2CD29CD50DB00DC6884 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2CE29CD50F700DC6884 /* LessonsLocalDataSource.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		298DD2D229CD54B200DC6884 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2D529CD55E100DC6884 /* LessonsRespons.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		298DD2D929CD720F00DC6884 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2DA29CD722F00DC6884 /* LessonsResponsMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		29E7CE6B29CA646A00C873CC = {
@@ -402,21 +523,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				298DD2D829CD577F00DC6884 /* Constants.swift in Sources */,
 				292E68E629CB9EC600BB8293 /* LessonsMocks.swift in Sources */,
 				292E68DE29CB39D900BB8293 /*  UIView+Extension.swift in Sources */,
+				298DD2C329CD4D5200DC6884 /* LessonsRepositoryProtocols.swift in Sources */,
 				292E68D429CB32AB00BB8293 /* IPSColors.swift in Sources */,
 				292E68D229CB328100BB8293 /* Asset.swift in Sources */,
 				292E68CE29CB30B000BB8293 /* UIColor+Extension.swift in Sources */,
+				298DD2DB29CD722F00DC6884 /* LessonsResponsMapper.swift in Sources */,
+				298DD2CF29CD50F700DC6884 /* LessonsLocalDataSource.swift in Sources */,
+				298DD2CC29CD50D500DC6884 /* LessonsRemoteDataSource.swift in Sources */,
+				298DD2D129CD51A300DC6884 /* LessonsDataSourceType.swift in Sources */,
 				292E68DA29CB374700BB8293 /* LessonDetailsViewController.swift in Sources */,
+				298DD2D429CD54DF00DC6884 /* IPSErrors.swift in Sources */,
 				292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */,
+				298DD2C829CD4F5D00DC6884 /* Lesson.swift in Sources */,
 				29E7CE8129CA646D00C873CC /* Persistence.swift in Sources */,
 				29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */,
-				292E68D629CB33F100BB8293 /* Lesson.swift in Sources */,
+				292E68D629CB33F100BB8293 /* LessonViewModel.swift in Sources */,
+				298DD2D629CD55E100DC6884 /* LessonsRespons.swift in Sources */,
 				29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */,
 				29E7CE8429CA646D00C873CC /* IPSAssignment.xcdatamodeld in Sources */,
+				298DD2C629CD4DCA00DC6884 /* LessonsRepository.swift in Sources */,
 				292E68C829CB2C9500BB8293 /* LessonsViewModel.swift in Sources */,
 				292E68BE29CB253F00BB8293 /* LessonCellView.swift in Sources */,
 				292E68E429CB989300BB8293 /* LessonDetailsViewModel.swift in Sources */,
+				298DD2BE29CD4B8D00DC6884 /* LessonsUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
