@@ -16,7 +16,21 @@ class LessonDetailsViewModel: ObservableObject {
     init(currentLesson: Lesson, lessons: [Lesson]) {
         self.currentLesson = currentLesson
         self.lessons = lessons
+    }
+}
+
+// MARK: Inputs
+
+extension LessonDetailsViewModel: LessonDetailsViewModelInput{
+    func viewDidLoad() {
         currentLessonSubject.send(currentLesson)
     }
-    
+}
+
+// MARK: Outputs
+
+extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
+    var currentLessonPublisher: AnyPublisher<Lesson, Never> {
+        currentLessonSubject.eraseToAnyPublisher()
+    }
 }

@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import AVFoundation
 import AVKit
+import Combine
 
 class LessonDetailsViewController: UIViewController {
 
@@ -102,11 +103,12 @@ class LessonDetailsViewController: UIViewController {
     
     // MARK: Properties
     
-    private let viewModel: LessonDetailsViewModel
-    
+    private let viewModel: LessonDetailsViewModelType
+    private var subscriptions = Set<AnyCancellable>()
+    private var currentVideoURL: URL?
     // MARK: Init
     
-    init(viewModel: LessonDetailsViewModel) {
+    init(viewModel: LessonDetailsViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: .main)
     }
@@ -121,7 +123,7 @@ class LessonDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewsConstraints()
-        setupUI()
+        setupViewModelOutputs()
         // Do any additional setup after loading the view.
     }
     
@@ -134,9 +136,10 @@ class LessonDetailsViewController: UIViewController {
 // MARK: - Actions
 
 private extension LessonDetailsViewController {
+    
     @objc private func openVideoPlayerView() {
-        // TODO: - Open video player view
-        presentVideoPlayer(with: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!)
+        guard let videoURL = currentVideoURL else { return }
+        presentVideoPlayer(with: videoURL)
     }
     
     @objc private func nextLessonButtonTapped() {
@@ -241,8 +244,20 @@ private extension LessonDetailsViewController {
 
 private extension LessonDetailsViewController {
     
-    private func setupUI() {
+    private func setupViewModelOutputs() {
+        viewModel
+            .currentLessonPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: configureUI)
+            .store(in: &subscriptions)
+    }
     
+    private func configureUI(with lesson: Lesson) {
+        videoImageView
+            .kf.setImage(with: lesson.thumbnailURL)
+        titleLabel.text = lesson.title
+        descriptionLabel.text = lesson.description
+        currentVideoURL = lesson.videoURL
     }
     
    private func showDownloadingProgressAlert() {
