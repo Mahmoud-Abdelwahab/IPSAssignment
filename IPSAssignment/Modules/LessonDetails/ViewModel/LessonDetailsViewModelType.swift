@@ -15,11 +15,12 @@ public typealias LessonDetailsViewModelType = LessonDetailsViewModelInput & Less
 ///
 public protocol LessonDetailsViewModelInput {
     func viewDidLoad()
+    func nextButtonDidTapped()
 }
 
 /// LessonDetails ViewModel Output
 ///
 public protocol LessonDetailsViewModelOutput {
-    var currentLessonPublisher: AnyPublisher<Lesson, Never> { get }
- 
+    var currentLessonPublisher: AnyPublisher<Lesson?, Never> { get }
+    var nextButtonIsHiddenPublisher: AnyPublisher<Bool, Never> { get }
 }

@@ -123,7 +123,9 @@ class LessonDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewsConstraints()
+        setupViewModelInputs()
         setupViewModelOutputs()
+
         // Do any additional setup after loading the view.
     }
     
@@ -143,7 +145,7 @@ private extension LessonDetailsViewController {
     }
     
     @objc private func nextLessonButtonTapped() {
-        print("Next Tapped")
+        viewModel.nextButtonDidTapped()
     }
     
     @objc private func downloadButtonTapped() {
@@ -244,15 +246,28 @@ private extension LessonDetailsViewController {
 
 private extension LessonDetailsViewController {
     
+    private func setupViewModelInputs() {
+        viewModel.viewDidLoad()
+    }
+    
     private func setupViewModelOutputs() {
         viewModel
             .currentLessonPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: configureUI)
             .store(in: &subscriptions)
+        
+        viewModel
+            .nextButtonIsHiddenPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: {[weak self] isHidden in self?.nextButton.isHidden = isHidden })
+            .store(in: &subscriptions)
+        
+            
     }
     
-    private func configureUI(with lesson: Lesson) {
+    private func configureUI(with lesson: Lesson?) {
+        guard let lesson else { return }
         videoImageView
             .kf.setImage(with: lesson.thumbnailURL)
         titleLabel.text = lesson.title
