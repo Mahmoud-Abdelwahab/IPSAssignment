@@ -6,9 +6,17 @@
 //
 
 import Foundation
-
+import Combine
 class LessonDetailsViewModel: ObservableObject {
     
-    init() {}
+    private let currentLesson: Lesson
+    private let lessons: [Lesson]
+    var currentLessonSubject = PassthroughSubject<Lesson, Never>()
+    
+    init(currentLesson: Lesson, lessons: [Lesson]) {
+        self.currentLesson = currentLesson
+        self.lessons = lessons
+        currentLessonSubject.send(currentLesson)
+    }
     
 }

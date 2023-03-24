@@ -144,8 +144,8 @@
 		292E68BB29CB24C200BB8293 /* LessonDetails */ = {
 			isa = PBXGroup;
 			children = (
-				292E68E229CB988100BB8293 /* ViewModel */,
 				292E68E129CB987200BB8293 /* Views */,
+				292E68E229CB988100BB8293 /* ViewModel */,
 				292E68D929CB374700BB8293 /* LessonDetailsViewController.swift */,
 				292E68DB29CB378F00BB8293 /* LessonDetailsWrapper.swift */,
 			);

@@ -102,13 +102,26 @@ class LessonDetailsViewController: UIViewController {
     
     // MARK: Properties
     
+    private let viewModel: LessonDetailsViewModel
+    
+    // MARK: Init
+    
+    init(viewModel: LessonDetailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: .main)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewsConstraints()
-        
+        setupUI()
         // Do any additional setup after loading the view.
     }
     
@@ -227,7 +240,12 @@ private extension LessonDetailsViewController {
 // MARK: - Private Handlers
 
 private extension LessonDetailsViewController {
-    func showDownloadingProgressAlert() {
+    
+    private func setupUI() {
+    
+    }
+    
+   private func showDownloadingProgressAlert() {
         let alertController = UIAlertController(title: "Downloading...🚀", message: nil, preferredStyle: .alert)
         let progressBar : UIProgressView = UIProgressView(progressViewStyle: .default)
         progressBar.setProgress(0, animated: true)

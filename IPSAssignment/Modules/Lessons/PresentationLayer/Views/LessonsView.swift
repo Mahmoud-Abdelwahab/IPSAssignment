@@ -16,7 +16,8 @@ struct LessonsView: View {
         NavigationStack {
             List($viewModel.lessons, id: \.id) { $lesson in
                 ZStack(alignment: .leading) {
-                    NavigationLink(destination: LessonDetailsWrapper()
+                    NavigationLink(destination: LessonDetailsWrapper(currentLesson: lesson,
+                                                                     lessons: viewModel.lessons)
                         .background(IPSColors.mainBackgroundColor)
                         .navigationBarTitleDisplayMode(.inline)) {
                             EmptyView()

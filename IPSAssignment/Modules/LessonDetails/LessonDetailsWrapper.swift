@@ -10,8 +10,14 @@ import SwiftUI
 /// ٍٍٍThis `Wrapper` For Wrapping the the UIKIT ViewController  into SwiftUI View
 /// 
 struct LessonDetailsWrapper: UIViewControllerRepresentable {
+    let currentLesson: Lesson
+    let lessons: [Lesson]
+    init(currentLesson: Lesson, lessons: [Lesson]) {
+        self.currentLesson = currentLesson
+        self.lessons = lessons
+    }
     func makeUIViewController(context: Context) -> UIViewController {
-        let viewController = LessonDetailsViewController()
+        let viewController = LessonDetailsViewController(viewModel: LessonDetailsViewModel(currentLesson: currentLesson, lessons: lessons))
         return viewController
     }
     
