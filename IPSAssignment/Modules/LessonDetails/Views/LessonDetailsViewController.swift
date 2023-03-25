@@ -132,6 +132,7 @@ class LessonDetailsViewController: UIViewController {
         super.viewWillDisappear(animated)
         downloadVideoButton.removeFromSuperview()
     }
+    
 }
 
 // MARK: - Actions
@@ -281,7 +282,7 @@ private extension LessonDetailsViewController {
         viewModel
             .videoURLPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: playCashedVideo)
+            .sink(receiveValue: playVideo)
             .store(in: &subscriptions)
         
         viewModel
@@ -291,13 +292,14 @@ private extension LessonDetailsViewController {
             .store(in: &subscriptions)
     }
     
-    private func playCashedVideo(_ url: URL?) {
+    private func playVideo(_ url: URL?) {
         guard let url else {
             showAlert(with: "No video found please connect to the internet")
             return
         }
         presentVideoPlayer(with: url)
     }
+    
     private func stylingDownloadButton(with style: DownloadButtonStyle) {
         downloadVideoButton.tintColor = style.tintColor
         downloadVideoButton.setTitle(style.title, for: .normal)
@@ -342,10 +344,12 @@ private extension LessonDetailsViewController {
     
     private func presentVideoPlayer(with url: URL) {
         let player = AVPlayer(url: url)
-        let vc = AVPlayerViewController()
-        vc.player = player
-        vc.player?.play()
-        self.present(vc, animated: true)
+        let avPlayerViewController = AVPlayerViewController()
+        avPlayerViewController.player = player
+        avPlayerViewController.player?.play()
+        self.present(avPlayerViewController, animated: true) { [weak self] in
+            self?.setupDownloadVideoButtonConstraint()
+        }
     }
     
     func showAlert(with message: String) {

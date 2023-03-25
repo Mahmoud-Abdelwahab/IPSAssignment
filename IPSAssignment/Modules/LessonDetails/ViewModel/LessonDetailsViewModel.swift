@@ -90,7 +90,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
 // MARK: Outputs
 
 extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
-  
+    
     var nextButtonIsHiddenPublisher: AnyPublisher<Bool, Never> {
         nextButtonIsHiddenSubject.eraseToAnyPublisher()
     }
@@ -139,9 +139,9 @@ extension LessonDetailsViewModel {
     
     @MainActor
     func downloadVideo() async throws {
-//        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
-                let download = DownloadManager(url: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!, downloadSession: downloadSession)
-
+        //        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
+        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
+        
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
@@ -160,22 +160,30 @@ private extension LessonDetailsViewModel {
             let progress = Float(current) / Float(total)
             progressSubject.send(progress)
         case let .success(url):
-            saveFile(at: url)
             progressSubject.send(1)
             downloadButtonStyleSubject.send(.offline)
+            saveFile(at: url)
         }
     }
     
     func saveFile(at url: URL) {
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destinationURL = documentsURL.appendingPathComponent("\(currentLesson.id).mp4")
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsDirectory.appendingPathComponent("\(currentLesson.id).mp4")
+        
         do {
-            try FileManager.default.moveItem(at: url, to: destinationURL)
-             updateIsVideoDownloadedFlagInCache()
-             updateIsVideoCachedCallBack(currentLesson.id)
-            print("File saved to \(destinationURL)")
+            let fileManager = FileManager.default
+            
+            // Create destination folder if it doesn't exist
+            let folderPath = destinationURL.deletingLastPathComponent().path
+            try fileManager.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
+            
+            // Move downloaded file to destination URL
+            try fileManager.moveItem(at: url, to: destinationURL)
+            updateIsVideoDownloadedFlagInCache()
+            updateIsVideoCachedCallBack(currentLesson.id)
+            print("File moved successfully")
         } catch {
-            print("Error saving file:", error)
+            print("Error moving file:", error.localizedDescription)
         }
     }
     
@@ -183,9 +191,9 @@ private extension LessonDetailsViewModel {
         let fileManager = FileManager.default
         let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
-            let videoFiles = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == "\(currentLesson.id).mp4" }
+            let videoFiles = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == "\(currentLesson.id).mp4"  }
             if let videoUrl = videoFiles.first {
-               return videoUrl
+                return videoUrl
             } else {
                 debugPrint("File not found")
             }
@@ -210,7 +218,7 @@ class DownloadManager: NSObject {
     let downloadSession: URLSession
     
     private var continuation: AsyncStream<Event>.Continuation?
-
+    
     private lazy var task: URLSessionDownloadTask = {
         let task = downloadSession.downloadTask(with: url)
         task.delegate = self
@@ -222,7 +230,7 @@ class DownloadManager: NSObject {
         self.downloadSession = downloadSession
     }
     
-  
+    
     var events: AsyncStream<Event> {
         AsyncStream { continuation in
             self.continuation = continuation

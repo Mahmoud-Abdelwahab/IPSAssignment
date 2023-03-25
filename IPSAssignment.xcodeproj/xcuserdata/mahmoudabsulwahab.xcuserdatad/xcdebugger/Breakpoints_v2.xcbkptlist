@@ -7,16 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CA855F44-A884-4CA4-8650-7445F638ECE8"
+            uuid = "4536E27A-5E9E-4206-92EE-79B63087066B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IPSAssignment/Modules/Lessons/PresentationLayer/ViewModel/LessonsViewModel.swift"
+            filePath = "IPSAssignment/Modules/LessonDetails/ViewModel/LessonDetailsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "updateDownloadedLessonIsCachedFlag(_:)"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "saveFile(at:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AD1E3DD0-67C9-41E5-B972-F2777E9CA784"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IPSAssignment/Modules/LessonDetails/ViewModel/LessonDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "saveFile(at:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E0B2134-E0DC-4A9D-80EC-2A355C423D1B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IPSAssignment/Modules/LessonDetails/ViewModel/LessonDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "saveFile(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
