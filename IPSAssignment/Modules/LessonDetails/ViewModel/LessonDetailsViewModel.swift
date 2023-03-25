@@ -21,10 +21,12 @@ class LessonDetailsViewModel: ObservableObject {
     private let showDownloadingAlertSubject = PassthroughSubject<Void, Never>()
     private var downloadButtonStyleSubject = CurrentValueSubject<DownloadButtonStyle, Never>(.download)
     private let videoURLSubject = PassthroughSubject<URL?, Never>()
+    private let showErrorSubject = PassthroughSubject<String, Never>()
     private var cancelDownloadCallBack: (()-> Void)?
     private let updateIsVideoCachedCallBack: ((Int)-> Void)
     private var subscriptions = Set<AnyCancellable>()
     private let isConnected = InternetConnectionChecker.isConnectedToInternet()
+    
     init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
@@ -45,24 +47,27 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
                 self.shouldShowNextButton()
             }
             .store(in: &subscriptions)
-        /// delete this line
-        getVideoURLFromCache()
     }
     
     func nextButtonDidTapped() {
         if let currentLessonIndex = getIndexOfCurrentLesson(), nextButtonIsHiddenSubject.value == false {
             currentLesson = lessons[currentLessonIndex+1]
             currentLessonSubject.send(currentLesson)
+            downloadButtonStyleSubject.send(.download)
         }
     }
     
     func downloadButtonDidTapped() {
-        Task {
-            do {
-              try await downloadVideo()
-            } catch {
-                print("❌: ", error)
+        if isConnected {
+            Task {
+                do {
+                    try await downloadVideo()
+                } catch {
+                    print("❌: ", error)
+                }
             }
+        } else {
+            showErrorSubject.send(" No Internet Connection .!")
         }
     }
     
@@ -108,6 +113,10 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
     
     var videoURLPublisher: AnyPublisher<URL?, Never> {
         videoURLSubject.eraseToAnyPublisher()
+    }
+    
+    var showErrorPublisher: AnyPublisher<String, Never> {
+        showErrorSubject.eraseToAnyPublisher()
     }
 }
 

@@ -31,4 +31,5 @@ public protocol LessonDetailsViewModelOutput {
     var showDownloadingAlertPublisher: AnyPublisher<Void, Never> { get }
     var downloadButtonStylePublisher: AnyPublisher<DownloadButtonStyle, Never> { get }
     var videoURLPublisher: AnyPublisher<URL?, Never> { get }
+    var showErrorPublisher: AnyPublisher<String, Never> { get }
 }

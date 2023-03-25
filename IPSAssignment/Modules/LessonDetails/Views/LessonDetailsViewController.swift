@@ -58,7 +58,7 @@ class LessonDetailsViewController: UIViewController {
     }()
     
     private lazy var downloadVideoButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitleColor(UIColor.tintColor, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         var configuration = UIButton.Configuration.plain()
@@ -147,12 +147,7 @@ private extension LessonDetailsViewController {
     }
     
     @objc private func downloadButtonTapped() {
-        print("Downlaoding...")
-        if InternetConnectionChecker.isConnectedToInternet() {
-            viewModel.downloadButtonDidTapped()
-        } else {
-            showAlert(with: "You are offline")
-        }
+        viewModel.downloadButtonDidTapped()
     }
 }
 
@@ -288,6 +283,12 @@ private extension LessonDetailsViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: playCashedVideo)
             .store(in: &subscriptions)
+        
+        viewModel
+            .showErrorPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: showAlert)
+            .store(in: &subscriptions)
     }
     
     private func playCashedVideo(_ url: URL?) {
@@ -298,19 +299,10 @@ private extension LessonDetailsViewController {
         presentVideoPlayer(with: url)
     }
     private func stylingDownloadButton(with style: DownloadButtonStyle) {
+        downloadVideoButton.tintColor = style.tintColor
         downloadVideoButton.setTitle(style.title, for: .normal)
         downloadVideoButton.setImage(style.image, for: .normal)
-//        downloadVideoButton.configuration?.image?.withTintColor(.green)
-//        downloadVideoButton.tintColor = style.tintColor
-//        downloadVideoButton.titleLabel?.textColor = .green
-//        downloadVideoButton.setTitleColor(style.tintColor, for: .normal)
-//        downloadVideoButton.imageView?.tintColor = style.tintColor
-//        downloadVideoButton.currentImage?.withTintColor(.green, renderingMode: .alwaysTemplate)
-//        downloadVideoButton.configuration?.image?.withTintColor(style.tintColor)
-
-        if case .offline = style {
-            downloadVideoButton.isEnabled = false
-        }
+        downloadVideoButton.isUserInteractionEnabled =  style == .offline ? false : true
     }
     
     private func configureUI(with lesson: Lesson?) {

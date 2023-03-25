@@ -25,16 +25,16 @@ public enum DownloadButtonStyle {
         case .download:
             return UIImage(systemName: "icloud.and.arrow.down")
         case .offline:
-            return UIImage(named: "checkmark-circle-icon")
+            return UIImage(systemName: "checkmark.circle.fill")
         }
     }
     
     var tintColor : UIColor {
         switch self {
         case .download:
-            return UIColor.systemBlue
+            return .systemBlue
         case .offline:
-            return UIColor.systemGreen
+            return .green
         }
     }
 }
