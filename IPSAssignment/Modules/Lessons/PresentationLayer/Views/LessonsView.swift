@@ -27,10 +27,10 @@ struct LessonsView: View {
                                 EmptyView()
                             }.opacity(0.0)
                         LessonCellView(lesson: $lesson)
-                    }.refreshable {
-                        Task {
-                           await viewModel.fetchLessons()
-                        }
+                    }
+                }.refreshable {
+                    Task {
+                        await viewModel.fetchLessons()
                     }
                 }
                 .listStyle(.grouped)

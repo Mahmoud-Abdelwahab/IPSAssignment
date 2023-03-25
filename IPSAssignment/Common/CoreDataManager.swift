@@ -49,7 +49,7 @@ class CoreDataManager : CoreDataManagerProtocol{
         }
         try saveContext()
     }
-
+    
     func addLessons(lessons: [Lesson]) throws {
         for lesson in lessons {
             let fetchRequest: NSFetchRequest<LessonEntity> = LessonEntity.fetchRequest()

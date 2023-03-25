@@ -21,14 +21,15 @@ struct LessonsRepository: LessonsRepositoryType {
     func fetchLessons() async throws -> [Lesson] {
         do {
             let response = try await  remoteDataSource.fetchLessons().mapToDomain()
-           try localDataSource.storeLessonsLocally(lessons: response)
-            return response
+            try await localDataSource.storeLessonsLocally(lessons: response)
+            let cachedLessons =  try await localDataSource.fetchLessons().mapToLessonsDomain()
+            return cachedLessons
         } catch {
             if  (error as NSError).code == Constants.offlineErrorCode {
                 /// No Internet So TRY  Fetch Lessons From Local
                 ///
                 debugPrint("❌: No internet connection try fetching lessons from cache")
-                let cachedLessons = try localDataSource.fetchLessons().mapToLessonsDomain()
+                let cachedLessons = try await localDataSource.fetchLessons().mapToLessonsDomain()
                 if cachedLessons.isEmpty {
                     throw error
                 }

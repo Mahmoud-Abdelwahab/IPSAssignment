@@ -41,7 +41,9 @@ extension LessonsViewModel {
     }
     
     private func showErrorView(error: Error) {
-        shouldShowErrorView = true
-        errorMessage = error.localizedDescription
+        if lessons.isEmpty {
+            shouldShowErrorView = true
+            errorMessage = error.localizedDescription
+        }
     }
 }
