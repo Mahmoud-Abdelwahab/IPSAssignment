@@ -15,7 +15,7 @@ struct LessonViewModel: Identifiable, Hashable {
     let description: String
     let thumbnailURL: URL
     let videoURL: URL
-    /// `isVideoCashed`  Identify if the lesson video dowloaded to files or not
+    /// `isVideoCached`  Identify if the lesson video dowloaded to files or not
     ///
     let isVideoCashed = false
 }

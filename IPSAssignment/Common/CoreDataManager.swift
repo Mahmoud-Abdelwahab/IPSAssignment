@@ -13,6 +13,7 @@ protocol CoreDataManagerProtocol{
     func addLessons(lessons: [Lesson]) throws
     func addNewLesson(lesson: Lesson) throws
     func updateLesson(lesson: Lesson) throws
+    func updateIsVideoCachedFlag(with lessonID: Int, flag: Bool) throws
 }
 
 class CoreDataManager : CoreDataManagerProtocol{
@@ -34,7 +35,15 @@ class CoreDataManager : CoreDataManagerProtocol{
         lessonEntity.thumbnailURL = lesson.thumbnailURL
         lessonEntity.videoURL = lesson.videoURL
         lessonEntity.isVideoCashed = false
-        try saveContext()
+    }
+    
+    func updateIsVideoCachedFlag(with lessonID: Int, flag: Bool = true) throws {
+        let fetchRequest: NSFetchRequest<LessonEntity> = LessonEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %i", lessonID)
+        let results = try managedObjectContext.fetch(fetchRequest)
+        if let existingLesson = results.first {
+            existingLesson.isVideoCashed = flag
+        }
     }
     
     func updateLesson(lesson: Lesson) throws {
@@ -48,7 +57,6 @@ class CoreDataManager : CoreDataManagerProtocol{
             existingLesson.thumbnailURL = lesson.thumbnailURL
             existingLesson.videoURL = lesson.videoURL
         }
-        try saveContext()
     }
     
     func addLessons(lessons: [Lesson]) throws {
@@ -68,6 +76,7 @@ class CoreDataManager : CoreDataManagerProtocol{
                 throw error
             }
         }
+        try saveContext()
     }
 
     func saveContext() throws{

@@ -21,7 +21,9 @@ struct LessonsView: View {
                 List($viewModel.lessons, id: \.id) { $lesson in
                     ZStack(alignment: .leading) {
                         NavigationLink(destination: LessonDetailsWrapper(currentLesson: lesson,
-                                                                         lessons: viewModel.lessons)
+                                                                         lessons: viewModel.lessons, updateIsVideoCachedCallBack: {_ in 
+                            viewModel.updateDownloadedLessonIsCachedFlag(lesson)
+                        })
                             .background(IPSColors.mainBackgroundColor)
                             .navigationBarTitleDisplayMode(.inline)) {
                                 EmptyView()

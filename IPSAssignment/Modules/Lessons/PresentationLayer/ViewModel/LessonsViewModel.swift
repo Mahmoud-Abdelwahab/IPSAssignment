@@ -40,6 +40,12 @@ extension LessonsViewModel {
         }
     }
     
+    func updateDownloadedLessonIsCachedFlag(_ lesson: Lesson) {
+        if let downloadedVideoIndex = lessons.firstIndex(of: lesson) {
+            lessons[downloadedVideoIndex].isVideoCashed = true
+        }
+    }
+    
     private func showErrorView(error: Error) {
         if lessons.isEmpty {
             shouldShowErrorView = true

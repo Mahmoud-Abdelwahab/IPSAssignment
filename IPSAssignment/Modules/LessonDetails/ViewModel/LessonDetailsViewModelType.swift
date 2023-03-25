@@ -16,6 +16,8 @@ public typealias LessonDetailsViewModelType = LessonDetailsViewModelInput & Less
 public protocol LessonDetailsViewModelInput {
     func viewDidLoad()
     func nextButtonDidTapped()
+    func downloadButtonDidTapped()
+    func cancelDownloadingVideo()
 }
 
 /// LessonDetails ViewModel Output
@@ -23,4 +25,6 @@ public protocol LessonDetailsViewModelInput {
 public protocol LessonDetailsViewModelOutput {
     var currentLessonPublisher: AnyPublisher<Lesson?, Never> { get }
     var nextButtonIsHiddenPublisher: AnyPublisher<Bool, Never> { get }
+    var progressPublisher: AnyPublisher<Float, Never> { get }
+    var showDownloadingAlertPublisher: AnyPublisher<Void, Never> { get }
 }

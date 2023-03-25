@@ -12,12 +12,14 @@ import SwiftUI
 struct LessonDetailsWrapper: UIViewControllerRepresentable {
     let currentLesson: Lesson
     let lessons: [Lesson]
-    init(currentLesson: Lesson, lessons: [Lesson]) {
+    let updateIsVideoCachedCallBack: ((Int)-> Void)
+    init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
+        self.updateIsVideoCachedCallBack = updateIsVideoCachedCallBack
     }
     func makeUIViewController(context: Context) -> UIViewController {
-        let viewController = LessonDetailsViewController(viewModel: LessonDetailsViewModel(currentLesson: currentLesson, lessons: lessons))
+        let viewController = LessonDetailsViewController(viewModel: LessonDetailsViewModel(currentLesson: currentLesson, lessons: lessons, updateIsVideoCachedCallBack: updateIsVideoCachedCallBack))
         return viewController
     }
     

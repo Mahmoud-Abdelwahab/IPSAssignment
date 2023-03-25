@@ -72,7 +72,7 @@ class LessonDetailsViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "This is just title for testing"
+        label.text = ""
         label.font = UIFont.boldSystemFont(ofSize: 23)
         label.numberOfLines = 0
         return label
@@ -80,7 +80,7 @@ class LessonDetailsViewController: UIViewController {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text =  "This is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testingThis is just description for testing purpose only so you have to remove it after finish testing "
+        label.text =  ""
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         return label
@@ -106,6 +106,7 @@ class LessonDetailsViewController: UIViewController {
     private let viewModel: LessonDetailsViewModelType
     private var subscriptions = Set<AnyCancellable>()
     private var currentVideoURL: URL?
+    private var progressSubject = PassthroughSubject<Float, Never>()
     // MARK: Init
     
     init(viewModel: LessonDetailsViewModelType) {
@@ -154,9 +155,11 @@ private extension LessonDetailsViewController {
     
     @objc private func downloadButtonTapped() {
         print("Downlaoding...")
-        // TODO: - don't foget to check on internet connection if the video not cached
-        #warning("TODO: - don't foget to check on internet connection if the video not cached")
-        showDownloadingProgressAlert()
+        if InternetConnectionChecker.isConnectedToInternet() {
+            viewModel.downloadButtonDidTapped()
+        } else {
+            showAlert(with: "You are offline")
+        }
     }
 }
 
@@ -266,10 +269,20 @@ private extension LessonDetailsViewController {
         viewModel
             .nextButtonIsHiddenPublisher
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: {[weak self] isHidden in self?.nextButton.isHidden = isHidden })
+            .sink(receiveValue: { [weak self] isHidden in self?.nextButton.isHidden = isHidden } )
             .store(in: &subscriptions)
         
-            
+        viewModel
+            .progressPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self]  in self?.progressSubject.send($0) })
+            .store(in: &subscriptions)
+        
+        viewModel
+            .showDownloadingAlertPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: showDownloadingProgressAlert)
+            .store(in: &subscriptions)
     }
     
     private func configureUI(with lesson: Lesson?) {
@@ -287,24 +300,23 @@ private extension LessonDetailsViewController {
         progressBar.setProgress(0, animated: true)
         progressBar.frame = CGRect(x: 0, y: 58, width: 270, height: 0)
         alertController.view.addSubview(progressBar)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            // Handle cancel action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {[weak self] _ in
+            guard let self else { return }
+            self.viewModel.cancelDownloadingVideo()
         }
         alertController.addAction(cancelAction)
-        present(alertController, animated: true) {
-            let totalSize = 100 // Total size of the file to be downloaded
-            var downloadedSize = 0 // Current downloaded size
-            
-            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
-                if downloadedSize >= totalSize {
-                    timer.invalidate()
-                    alertController.dismiss(animated: true, completion: nil)
-                } else {
-                    downloadedSize += 1
-                    let progress = Float(downloadedSize) / Float(totalSize)
-                    progressBar.setProgress(progress, animated: true)
-                }
-            }
+        present(alertController, animated: true) { [weak self] in
+            guard let self else { return }
+            self.progressSubject
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: {
+                    progressBar.setProgress($0, animated: true)
+                    if $0 == 1 {
+                        alertController.dismiss(animated: true, completion: nil)
+                        
+                    }
+                })
+                .store(in: &self.subscriptions)
         }
     }
     
