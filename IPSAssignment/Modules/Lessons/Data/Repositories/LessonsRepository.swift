@@ -25,9 +25,9 @@ struct LessonsRepository: LessonsRepositoryType {
             return response
         } catch {
             if  (error as NSError).code == Constants.offlineErrorCode {
-                /// No Internet So Fetch Lessons From Local
+                /// No Internet So TRY  Fetch Lessons From Local
                 ///
-                debugPrint("❌: no internet")
+                debugPrint("❌: No internet connection try fetching lessons from cache")
                 let cachedLessons = try localDataSource.fetchLessons().mapToLessonsDomain()
                 if cachedLessons.isEmpty {
                     throw error

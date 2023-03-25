@@ -16,7 +16,6 @@ protocol CoreDataManagerProtocol{
 }
 
 class CoreDataManager : CoreDataManagerProtocol{
-     var managedObjectContext = persistenceController
 
     static let shared = CoreDataManager()
 

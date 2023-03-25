@@ -37,7 +37,6 @@ extension LessonsViewModel {
         } catch {
             // no need for handling error here
             showErrorView(error: error)
-            debugPrint("❌ VM: \(error.localizedDescription)")
         }
     }
     
