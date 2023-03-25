@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-#warning("Try to Inject managedObjectContext in the Core data manager")
-let managedObjectContext = PersistenceController.shared.container.viewContext
 
 @main
 struct IPSAssignmentApp: App {

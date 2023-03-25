@@ -18,9 +18,10 @@ protocol CoreDataManagerProtocol{
 class CoreDataManager : CoreDataManagerProtocol{
 
     static let shared = CoreDataManager()
+    private let managedObjectContext = PersistenceController.shared.container.viewContext
 
     private init(){}
-    
+
     func fetchLessons() throws -> [LessonEntity] {
         return try managedObjectContext.fetch(LessonEntity.fetchRequest())
     }
