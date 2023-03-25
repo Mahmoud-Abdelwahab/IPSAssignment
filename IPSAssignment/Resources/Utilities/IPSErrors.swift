@@ -8,8 +8,6 @@
 import Foundation
 
 enum IPSErrors: LocalizedError {
-    /// No Internet Connection
-    case offline(String)
     /// Invalid URL
     case withMessage(String)
 }

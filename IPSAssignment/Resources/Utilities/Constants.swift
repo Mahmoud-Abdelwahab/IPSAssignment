@@ -22,4 +22,8 @@ public enum Constants {
             return value
         }
     }
+    
+    /// No Internet Connection Error Code
+    ///
+    static let offlineErrorCode = -1009
 }

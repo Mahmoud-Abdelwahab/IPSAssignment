@@ -15,5 +15,5 @@ public struct Lesson: Hashable {
     let videoURL: URL
     /// `isVideoCashed`  Identify if the lesson video dowloaded to files or not
     ///
-    let isVideoCashed = false
+    var isVideoCashed = false
 }

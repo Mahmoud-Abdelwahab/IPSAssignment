@@ -8,7 +8,15 @@
 import Foundation
 import Combine
 
-struct LessonsRemoteDataSource: LessonsDataSourceType {
+import Foundation
+
+protocol LessonsRemoteDataSourceType {
+    /// For getting lessons
+    ///
+    func fetchLessons() async throws -> LessonsResponse
+}
+
+struct LessonsRemoteDataSource: LessonsRemoteDataSourceType {
     
     init() {}
     

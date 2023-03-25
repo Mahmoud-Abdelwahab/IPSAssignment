@@ -9,26 +9,30 @@ import Foundation
 
 struct LessonsRepository: LessonsRepositoryType {
     
-    let remoteDataSource: LessonsDataSourceType
-    let LocalDataSource: LessonsLocalDataSourceType
+    let remoteDataSource: LessonsRemoteDataSourceType
+    let localDataSource: LessonsLocalDataSourceType
     
-    init(remoteDataSource: LessonsDataSourceType = LessonsRemoteDataSource(),
+    init(remoteDataSource: LessonsRemoteDataSourceType = LessonsRemoteDataSource(),
          LocalDataSource: LessonsLocalDataSourceType = LessonsLocalDataSource()) {
         self.remoteDataSource = remoteDataSource
-        self.LocalDataSource = LocalDataSource
+        self.localDataSource = LocalDataSource
     }
     
     func fetchLessons() async throws -> [Lesson] {
         do {
             let response = try await  remoteDataSource.fetchLessons().mapToDomain()
+           try localDataSource.storeLessonsLocally(lessons: response)
             return response
-            /// cach it locallay
         } catch {
-            if let error = error as? IPSErrors, case .offline(_) = error {
+            if  (error as NSError).code == Constants.offlineErrorCode {
                 /// No Internet So Fetch Lessons From Local
                 ///
                 debugPrint("❌: no internet")
-                return try await LocalDataSource.fetchLessons().mapToDomain()
+                let cachedLessons = try localDataSource.fetchLessons().mapToLessonsDomain()
+                if cachedLessons.isEmpty {
+                    throw error
+                }
+                return cachedLessons
             }
             throw error
         }

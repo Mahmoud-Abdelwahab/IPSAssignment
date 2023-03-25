@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8B7C1870-7785-4C57-9D22-690B298B5BBC"
+            uuid = "F59DCA3D-1554-4926-9263-7620CCCFA217"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "IPSAssignment/Modules/LessonDetails/Views/LessonDetailsViewController.swift"
+            filePath = "IPSAssignment/Common/CoreDataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
-            landmarkName = "configureUI(with:)"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "addNewLesson(lesson:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

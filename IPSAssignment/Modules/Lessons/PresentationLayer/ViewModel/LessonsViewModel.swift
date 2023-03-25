@@ -8,15 +8,17 @@
 
 
 import Combine
+import Foundation
 
 final class LessonsViewModel: ObservableObject {
     
     // MARK: Properties
     
     private let usecase: LessonsUseCaseType
-    private(set) var loadingSubject = PassthroughSubject<Bool, Never>()
     @Published var lessons =  [Lesson]()
-    
+    @Published var isLoading = false
+    @Published var shouldShowErrorView = false
+    @Published var errorMessage = ""
     // MARK: Lifecycle
     
     init(usecase: LessonsUseCaseType = LessonsUsecase()) {
@@ -27,13 +29,20 @@ final class LessonsViewModel: ObservableObject {
 extension LessonsViewModel {
     @MainActor
     func fetchLessons() async {
-        loadingSubject.send(true)
-        defer { loadingSubject.send(false) }
+        isLoading = true
+        shouldShowErrorView = false // TODO: - try impleement pull to refresh
+        defer { isLoading = false }
         do {
             lessons = try await usecase.execute()
         } catch {
             // no need for handling error here
+            showErrorView(error: error)
             debugPrint("❌ VM: \(error.localizedDescription)")
         }
+    }
+    
+    private func showErrorView(error: Error) {
+        shouldShowErrorView = true
+        errorMessage = error.localizedDescription
     }
 }

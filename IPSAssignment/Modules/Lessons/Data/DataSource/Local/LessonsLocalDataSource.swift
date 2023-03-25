@@ -7,21 +7,29 @@
 
 import Foundation
 
-protocol LessonsLocalDataSourceType: LessonsDataSourceType {
+protocol LessonsLocalDataSourceType {
+    /// For getting lessons
+    ///
+    func fetchLessons() throws -> [LessonEntity]
+
     /// For caching lessons locally
     ///
-    func storeLessonsLocally()
+    func storeLessonsLocally(lessons: [Lesson]) throws
+    /// For Updating the isVideoCached property
+    ///
+    func updateLesson(lesson: Lesson) throws
 }
 
 struct LessonsLocalDataSource: LessonsLocalDataSourceType {
-
-    func fetchLessons() async throws -> LessonsResponse {
-        LessonsResponse.init(lessons: [])
+    func updateLesson(lesson: Lesson) throws {
+        try CoreDataManager.shared.updateLesson(lesson: lesson)
     }
     
-    func storeLessonsLocally() {
-     
+    func fetchLessons() throws -> [LessonEntity] {
+        try  CoreDataManager.shared.fetchLessons()
     }
-
+    
+    func storeLessonsLocally(lessons: [Lesson]) throws {
+        try CoreDataManager.shared.addLessons(lessons: lessons)
+    }
 }
-

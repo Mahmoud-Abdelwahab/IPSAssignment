@@ -150,6 +150,8 @@ private extension LessonDetailsViewController {
     
     @objc private func downloadButtonTapped() {
         print("Downlaoding...")
+        // TODO: - don't foget to check on internet connection if the video not cached
+        #warning("TODO: - don't foget to check on internet connection if the video not cached")
         showDownloadingProgressAlert()
     }
 }

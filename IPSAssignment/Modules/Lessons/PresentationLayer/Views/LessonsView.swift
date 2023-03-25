@@ -8,27 +8,42 @@
 import SwiftUI
 import CoreData
 
-struct LessonsView: View {
-   
-   @StateObject private var viewModel = LessonsViewModel()
 
+struct LessonsView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @StateObject private var viewModel: LessonsViewModel
+    init(viewModel: LessonsViewModel) {
+        self._viewModel =  StateObject(wrappedValue: viewModel)
+    }
     var body: some View {
         NavigationStack {
-            List($viewModel.lessons, id: \.id) { $lesson in
-                ZStack(alignment: .leading) {
-                    NavigationLink(destination: LessonDetailsWrapper(currentLesson: lesson,
-                                                                     lessons: viewModel.lessons)
-                        .background(IPSColors.mainBackgroundColor)
-                        .navigationBarTitleDisplayMode(.inline)) {
-                            EmptyView()
-                        }.opacity(0.0)
-                    LessonCellView(lesson: $lesson)
+            ZStack {
+                List($viewModel.lessons, id: \.id) { $lesson in
+                    ZStack(alignment: .leading) {
+                        NavigationLink(destination: LessonDetailsWrapper(currentLesson: lesson,
+                                                                         lessons: viewModel.lessons)
+                            .background(IPSColors.mainBackgroundColor)
+                            .navigationBarTitleDisplayMode(.inline)) {
+                                EmptyView()
+                            }.opacity(0.0)
+                        LessonCellView(lesson: $lesson)
+                    }.refreshable {
+                        Task {
+                           await viewModel.fetchLessons()
+                        }
+                    }
+                }
+                .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
+                .background(IPSColors.mainBackgroundColor)
+                .navigationTitle("Lessons")
+                if viewModel.isLoading {
+                    ProgressView().progressViewStyle(.circular)
+                }
+                if viewModel.shouldShowErrorView {
+                    ErrorView(errorMessage: viewModel.errorMessage)
                 }
             }
-            .listStyle(.grouped)
-            .scrollContentBackground(.hidden)
-            .background(IPSColors.mainBackgroundColor)
-            .navigationTitle("Lessons")
         }
         .task {
            await viewModel.fetchLessons()
@@ -38,6 +53,6 @@ struct LessonsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LessonsView()
+        LessonsView(viewModel: LessonsViewModel())
     }
 }
