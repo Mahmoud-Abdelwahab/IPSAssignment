@@ -33,6 +33,7 @@
 		298DD2E229CE2CF800DC6884 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2E129CE2CF800DC6884 /* CoreDataManager.swift */; };
 		298DD2E729CE835500DC6884 /* CoreDataLessonEntityToDomainEntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2E629CE835500DC6884 /* CoreDataLessonEntityToDomainEntityMapper.swift */; };
 		298DD2E929CEAAE400DC6884 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2E829CEAAE400DC6884 /* ErrorView.swift */; };
+		298DD2EC29CED20600DC6884 /* InternetConnectionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2EB29CED20600DC6884 /* InternetConnectionChecker.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -88,6 +89,7 @@
 		298DD2E129CE2CF800DC6884 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		298DD2E629CE835500DC6884 /* CoreDataLessonEntityToDomainEntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataLessonEntityToDomainEntityMapper.swift; sourceTree = "<group>"; };
 		298DD2E829CEAAE400DC6884 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		298DD2EB29CED20600DC6884 /* InternetConnectionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionChecker.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		292E68C329CB266000BB8293 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				298DD2EA29CED1EB00DC6884 /* Helpers */,
 				292E68CC29CB309E00BB8293 /* Extensions */,
 				292E68D129CB328100BB8293 /* Asset.swift */,
 				292E68D329CB32AB00BB8293 /* IPSColors.swift */,
@@ -352,6 +355,14 @@
 				29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */,
 			);
 			path = Host;
+			sourceTree = "<group>";
+		};
+		298DD2EA29CED1EB00DC6884 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				298DD2EB29CED20600DC6884 /* InternetConnectionChecker.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		29E7CE6B29CA646A00C873CC = {
@@ -576,6 +587,7 @@
 				292E68E429CB989300BB8293 /* LessonDetailsViewModel.swift in Sources */,
 				298DD2BE29CD4B8D00DC6884 /* LessonsUseCase.swift in Sources */,
 				298DD2E229CE2CF800DC6884 /* CoreDataManager.swift in Sources */,
+				298DD2EC29CED20600DC6884 /* InternetConnectionChecker.swift in Sources */,
 				298DD2DF29CDE50B00DC6884 /* LessonDetailsViewModelType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

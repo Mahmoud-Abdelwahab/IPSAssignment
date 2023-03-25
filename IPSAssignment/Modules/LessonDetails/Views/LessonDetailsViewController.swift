@@ -140,8 +140,12 @@ class LessonDetailsViewController: UIViewController {
 private extension LessonDetailsViewController {
     
     @objc private func openVideoPlayerView() {
-        guard let videoURL = currentVideoURL else { return }
-        presentVideoPlayer(with: videoURL)
+        if InternetConnectionChecker.isConnectedToInternet() {
+            guard let videoURL = currentVideoURL else { return }
+            presentVideoPlayer(with: videoURL)
+        } else {
+            showAlert(with: "You are offline")
+        }
     }
     
     @objc private func nextLessonButtonTapped() {
@@ -310,5 +314,11 @@ private extension LessonDetailsViewController {
         vc.player = player
         vc.player?.play()
         self.present(vc, animated: true)
+    }
+    
+    func showAlert(with message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
