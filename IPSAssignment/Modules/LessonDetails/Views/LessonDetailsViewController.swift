@@ -62,8 +62,6 @@ class LessonDetailsViewController: UIViewController {
         button.setTitleColor(UIColor.tintColor, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         var configuration = UIButton.Configuration.plain()
-        configuration.title = "Download"
-        configuration.image = UIImage(systemName: "icloud.and.arrow.down")
         configuration.imagePadding = 6
         button.configuration = configuration
         button.addTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
@@ -141,12 +139,7 @@ class LessonDetailsViewController: UIViewController {
 private extension LessonDetailsViewController {
     
     @objc private func openVideoPlayerView() {
-        if InternetConnectionChecker.isConnectedToInternet() {
-            guard let videoURL = currentVideoURL else { return }
-            presentVideoPlayer(with: videoURL)
-        } else {
-            showAlert(with: "You are offline")
-        }
+        viewModel.openVideoPlayer()
     }
     
     @objc private func nextLessonButtonTapped() {
@@ -283,6 +276,41 @@ private extension LessonDetailsViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: showDownloadingProgressAlert)
             .store(in: &subscriptions)
+        
+        viewModel
+            .downloadButtonStylePublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: stylingDownloadButton)
+            .store(in: &subscriptions)
+        
+        viewModel
+            .videoURLPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: playCashedVideo)
+            .store(in: &subscriptions)
+    }
+    
+    private func playCashedVideo(_ url: URL?) {
+        guard let url else {
+            showAlert(with: "No video found please connect to the internet")
+            return
+        }
+        presentVideoPlayer(with: url)
+    }
+    private func stylingDownloadButton(with style: DownloadButtonStyle) {
+        downloadVideoButton.setTitle(style.title, for: .normal)
+        downloadVideoButton.setImage(style.image, for: .normal)
+//        downloadVideoButton.configuration?.image?.withTintColor(.green)
+//        downloadVideoButton.tintColor = style.tintColor
+//        downloadVideoButton.titleLabel?.textColor = .green
+//        downloadVideoButton.setTitleColor(style.tintColor, for: .normal)
+//        downloadVideoButton.imageView?.tintColor = style.tintColor
+//        downloadVideoButton.currentImage?.withTintColor(.green, renderingMode: .alwaysTemplate)
+//        downloadVideoButton.configuration?.image?.withTintColor(style.tintColor)
+
+        if case .offline = style {
+            downloadVideoButton.isEnabled = false
+        }
     }
     
     private func configureUI(with lesson: Lesson?) {

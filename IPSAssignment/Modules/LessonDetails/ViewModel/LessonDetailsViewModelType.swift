@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 /// LessonDetailsViewModel Input & Output
 ///
@@ -18,6 +19,7 @@ public protocol LessonDetailsViewModelInput {
     func nextButtonDidTapped()
     func downloadButtonDidTapped()
     func cancelDownloadingVideo()
+    func openVideoPlayer()
 }
 
 /// LessonDetails ViewModel Output
@@ -27,4 +29,6 @@ public protocol LessonDetailsViewModelOutput {
     var nextButtonIsHiddenPublisher: AnyPublisher<Bool, Never> { get }
     var progressPublisher: AnyPublisher<Float, Never> { get }
     var showDownloadingAlertPublisher: AnyPublisher<Void, Never> { get }
+    var downloadButtonStylePublisher: AnyPublisher<DownloadButtonStyle, Never> { get }
+    var videoURLPublisher: AnyPublisher<URL?, Never> { get }
 }

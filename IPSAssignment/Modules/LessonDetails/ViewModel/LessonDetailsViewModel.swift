@@ -15,14 +15,16 @@ class LessonDetailsViewModel: ObservableObject {
     
     private var currentLesson: Lesson
     private let lessons: [Lesson]
-    var currentLessonSubject = CurrentValueSubject<Lesson?, Never>(nil)
-    var nextButtonIsHiddenSubject = CurrentValueSubject<Bool, Never>(true)
-    let progressSubject = PassthroughSubject<Float, Never>()
-    let showDownloadingAlertSubject = PassthroughSubject<Void, Never>()
-    var cancelDownloadCallBack: (()-> Void)?
-    let updateIsVideoCachedCallBack: ((Int)-> Void)
+    private let currentLessonSubject = CurrentValueSubject<Lesson?, Never>(nil)
+    private let nextButtonIsHiddenSubject = CurrentValueSubject<Bool, Never>(true)
+    private let progressSubject = PassthroughSubject<Float, Never>()
+    private let showDownloadingAlertSubject = PassthroughSubject<Void, Never>()
+    private var downloadButtonStyleSubject = CurrentValueSubject<DownloadButtonStyle, Never>(.download)
+    private let videoURLSubject = PassthroughSubject<URL?, Never>()
+    private var cancelDownloadCallBack: (()-> Void)?
+    private let updateIsVideoCachedCallBack: ((Int)-> Void)
     private var subscriptions = Set<AnyCancellable>()
-    
+    private let isConnected = InternetConnectionChecker.isConnectedToInternet()
     init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
@@ -34,6 +36,7 @@ class LessonDetailsViewModel: ObservableObject {
 
 extension LessonDetailsViewModel: LessonDetailsViewModelInput {
     func viewDidLoad() {
+        if currentLesson.isVideoCashed { downloadButtonStyleSubject.send(.offline) }
         currentLessonSubject.send(currentLesson)
         currentLessonSubject
             .receive(on: DispatchQueue.main)
@@ -42,6 +45,8 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
                 self.shouldShowNextButton()
             }
             .store(in: &subscriptions)
+        /// delete this line
+        getVideoURLFromCache()
     }
     
     func nextButtonDidTapped() {
@@ -64,12 +69,23 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
     func cancelDownloadingVideo() {
         cancelDownloadCallBack?()
     }
+    
+    func openVideoPlayer() {
+        if currentLesson.isVideoCashed {
+            guard let  videoUrl = getVideoURLFromCache()  else { return }
+            videoURLSubject.send(videoUrl)
+        } else if isConnected  {
+            videoURLSubject.send(currentLesson.videoURL)
+        } else {
+            videoURLSubject.send(nil)
+        }
+    }
 }
 
 // MARK: Outputs
 
 extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
-    
+  
     var nextButtonIsHiddenPublisher: AnyPublisher<Bool, Never> {
         nextButtonIsHiddenSubject.eraseToAnyPublisher()
     }
@@ -84,6 +100,14 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
     
     var showDownloadingAlertPublisher: AnyPublisher<Void, Never> {
         showDownloadingAlertSubject.first().eraseToAnyPublisher()
+    }
+    
+    var downloadButtonStylePublisher: AnyPublisher<DownloadButtonStyle, Never> {
+        downloadButtonStyleSubject.eraseToAnyPublisher()
+    }
+    
+    var videoURLPublisher: AnyPublisher<URL?, Never> {
+        videoURLSubject.eraseToAnyPublisher()
     }
 }
 
@@ -106,7 +130,9 @@ extension LessonDetailsViewModel {
     
     @MainActor
     func downloadVideo() async throws {
-        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
+//        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
+                let download = DownloadManager(url: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!, downloadSession: downloadSession)
+
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
@@ -127,6 +153,7 @@ private extension LessonDetailsViewModel {
         case let .success(url):
             saveFile(at: url)
             progressSubject.send(1)
+            downloadButtonStyleSubject.send(.offline)
         }
     }
     
@@ -141,6 +168,22 @@ private extension LessonDetailsViewModel {
         } catch {
             print("Error saving file:", error)
         }
+    }
+    
+    func getVideoURLFromCache() -> URL? {
+        let fileManager = FileManager.default
+        let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let videoFiles = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == "\(currentLesson.id).mp4" }
+            if let videoUrl = videoFiles.first {
+               return videoUrl
+            } else {
+                debugPrint("File not found")
+            }
+        } catch {
+            print("Error while enumerating files \(documentsUrl.path): \(error.localizedDescription)")
+        }
+        return nil
     }
     
     func updateIsVideoDownloadedFlagInCache() {

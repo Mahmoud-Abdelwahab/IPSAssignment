@@ -16,4 +16,8 @@ public struct Lesson: Hashable {
     /// `isVideoCashed`  Identify if the lesson video dowloaded to files or not
     ///
     var isVideoCashed = false
+    
+    mutating func toggleVideoCashed(_ flag: Bool) {
+        self.isVideoCashed = flag
+    }
 }

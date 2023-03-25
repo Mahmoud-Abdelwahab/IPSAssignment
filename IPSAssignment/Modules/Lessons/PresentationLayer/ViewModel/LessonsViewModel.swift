@@ -42,7 +42,9 @@ extension LessonsViewModel {
     
     func updateDownloadedLessonIsCachedFlag(_ lesson: Lesson) {
         if let downloadedVideoIndex = lessons.firstIndex(of: lesson) {
-            lessons[downloadedVideoIndex].isVideoCashed = true
+            var oldLesson = lessons[downloadedVideoIndex]
+            oldLesson.isVideoCashed = true
+            lessons[downloadedVideoIndex] = oldLesson
         }
     }
     

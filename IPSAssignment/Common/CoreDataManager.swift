@@ -44,6 +44,7 @@ class CoreDataManager : CoreDataManagerProtocol{
         if let existingLesson = results.first {
             existingLesson.isVideoCashed = flag
         }
+        try saveContext()
     }
     
     func updateLesson(lesson: Lesson) throws {
