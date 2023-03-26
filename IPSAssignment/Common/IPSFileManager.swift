@@ -27,7 +27,10 @@ struct IPSFileManager {
     func saveVideoToFile(at url: URL, fileName: String) throws  {
         let destinationURL = getDocumentsDirectory().appendingPathComponent(fileName)
         do {
-            try fileManager.moveItem(at: url, to: destinationURL)
+            if  fileManager.fileExists(atPath: destinationURL.path) {
+                try fileManager.removeItem(at: destinationURL)
+            }
+            try fileManager.copyItem(at: url, to: destinationURL)
             debugPrint("File moved successfully ✅")
         } catch {
             debugPrint("Error moving file:", error.localizedDescription, "❌")

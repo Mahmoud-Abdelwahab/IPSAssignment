@@ -30,7 +30,7 @@ extension LessonsViewModel {
     @MainActor
     func fetchLessons() async {
         isLoading = true
-        shouldShowErrorView = false // TODO: - try impleement pull to refresh
+        shouldShowErrorView = false
         defer { isLoading = false }
         do {
             lessons = try await usecase.execute()

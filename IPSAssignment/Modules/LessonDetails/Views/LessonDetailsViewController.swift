@@ -133,6 +133,9 @@ class LessonDetailsViewController: UIViewController {
         downloadVideoButton.removeFromSuperview()
     }
     
+    deinit {
+        debugPrint("Deinit: LessonDetailsViewController")
+    }
 }
 
 // MARK: - Actions
