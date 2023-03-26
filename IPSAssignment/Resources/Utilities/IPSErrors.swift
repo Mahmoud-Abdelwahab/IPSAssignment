@@ -10,6 +10,12 @@ import Foundation
 enum IPSErrors: LocalizedError {
     /// Invalid URL
     case withMessage(String)
+    
+    /// File is not writable
+    case notWritableFile
+    
+    /// File not found
+    case fileNotFound
 }
 
 struct IPSErrorMessage: Decodable {

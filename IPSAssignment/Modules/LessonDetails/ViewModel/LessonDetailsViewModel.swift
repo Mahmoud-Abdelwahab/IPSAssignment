@@ -8,10 +8,6 @@
 import Foundation
 import Combine
 class LessonDetailsViewModel: ObservableObject {
-    private lazy var downloadSession: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        return URLSession(configuration: configuration, delegate: nil, delegateQueue: .main)
-    }()
     
     private var currentLesson: Lesson
     private let lessons: [Lesson]
@@ -53,7 +49,8 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
         if let currentLessonIndex = getIndexOfCurrentLesson(), nextButtonIsHiddenSubject.value == false {
             currentLesson = lessons[currentLessonIndex+1]
             currentLessonSubject.send(currentLesson)
-            downloadButtonStyleSubject.send(.download)
+            let downloadButtonStyle: DownloadButtonStyle =  currentLesson.isVideoCashed ? .offline : .download
+            downloadButtonStyleSubject.send(downloadButtonStyle)
         }
     }
     
@@ -123,6 +120,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
 // MARK: Private handlers
 
 extension LessonDetailsViewModel {
+    
     private func shouldShowNextButton() {
         if let currentLessonIndex = getIndexOfCurrentLesson() {
             let lastLessonIndex = lessons.count - 1
@@ -139,9 +137,9 @@ extension LessonDetailsViewModel {
     
     @MainActor
     func downloadVideo() async throws {
-        //        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
-        let download = DownloadManager(url: currentLesson.videoURL, downloadSession: downloadSession)
-        
+        //   let dummyShourtVideoURL = URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!
+#warning("DOn't forget to remove this dummy data")
+        let download = DownloadManager(url: currentLesson.videoURL )
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
@@ -153,6 +151,7 @@ extension LessonDetailsViewModel {
 }
 
 private extension LessonDetailsViewModel {
+    
     func process(_ event: DownloadManager.Event) {
         switch event {
         case let .progress(current, total):
@@ -167,40 +166,23 @@ private extension LessonDetailsViewModel {
     }
     
     func saveFile(at url: URL) {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destinationURL = documentsDirectory.appendingPathComponent("\(currentLesson.id).mp4")
-        
         do {
-            let fileManager = FileManager.default
-            
-            // Create destination folder if it doesn't exist
-            let folderPath = destinationURL.deletingLastPathComponent().path
-            try fileManager.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
-            
-            // Move downloaded file to destination URL
-            try fileManager.moveItem(at: url, to: destinationURL)
+            try IPSFileManager.shared.saveVideoToFile(at: url, fileName: "\(currentLesson.id).mp4")
             updateIsVideoDownloadedFlagInCache()
             updateIsVideoCachedCallBack(currentLesson.id)
-            print("File moved successfully")
         } catch {
-            print("Error moving file:", error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
     }
     
     func getVideoURLFromCache() -> URL? {
-        let fileManager = FileManager.default
-        let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
-            let videoFiles = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == "\(currentLesson.id).mp4"  }
-            if let videoUrl = videoFiles.first {
-                return videoUrl
-            } else {
-                debugPrint("File not found")
-            }
+            let videoURL = try IPSFileManager.shared.getVideoURLFromCache(fileName: "\(currentLesson.id).mp4", fileExtension: "mp4")
+            return videoURL
         } catch {
-            print("Error while enumerating files \(documentsUrl.path): \(error.localizedDescription)")
+            debugPrint(error.localizedDescription)
+            return nil
         }
-        return nil
     }
     
     func updateIsVideoDownloadedFlagInCache() {
@@ -209,60 +191,5 @@ private extension LessonDetailsViewModel {
         } catch  {
             debugPrint("❌: ", error)
         }
-    }
-}
-
-
-class DownloadManager: NSObject {
-    let url: URL
-    let downloadSession: URLSession
-    
-    private var continuation: AsyncStream<Event>.Continuation?
-    
-    private lazy var task: URLSessionDownloadTask = {
-        let task = downloadSession.downloadTask(with: url)
-        task.delegate = self
-        return task
-    }()
-    
-    init(url: URL, downloadSession: URLSession) {
-        self.url = url
-        self.downloadSession = downloadSession
-    }
-    
-    
-    var events: AsyncStream<Event> {
-        AsyncStream { continuation in
-            self.continuation = continuation
-            task.resume()
-            continuation.onTermination = { @Sendable [weak self] _ in
-                ///The onTermination sendable closure will cancel the download task when the caller stops listening to the stream of events
-                self?.task.cancel()
-            }
-        }
-    }
-    
-    func cancelProcess() {
-        task.cancel()
-    }
-}
-
-extension DownloadManager {
-    enum Event {
-        case progress(currentBytes: Int64, totalBytes: Int64)
-        case success(url: URL)
-    }
-}
-
-extension DownloadManager: URLSessionDownloadDelegate {
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        continuation?.yield( .progress(
-            currentBytes: totalBytesWritten,
-            totalBytes: totalBytesExpectedToWrite))
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        continuation?.yield(.success(url: location))
-        continuation?.finish()
     }
 }
