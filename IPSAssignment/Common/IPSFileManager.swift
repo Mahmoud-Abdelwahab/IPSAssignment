@@ -19,26 +19,20 @@ struct IPSFileManager {
     // MARK: - Public Methods
     
     private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+        let url =  fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return url
     }
     
     
     func saveVideoToFile(at url: URL, fileName: String) throws  {
-        
         let destinationURL = getDocumentsDirectory().appendingPathComponent(fileName)
-        
-        if fileManager.isWritableFile(atPath: destinationURL.path) {
-            do {
-                try fileManager.moveItem(at: url, to: destinationURL)
-                debugPrint("File moved successfully ✅")
-            } catch {
-                debugPrint("Error moving file:", error.localizedDescription, "❌")
-                throw error
-            }
+        do {
+            try fileManager.moveItem(at: url, to: destinationURL)
+            debugPrint("File moved successfully ✅")
+        } catch {
+            debugPrint("Error moving file:", error.localizedDescription, "❌")
+            throw error
         }
-        debugPrint("❌File is read-only❌")
-        throw IPSErrors.notWritableFile
     }
     
     func getVideoURLFromCache(fileName: String, fileExtension: String) throws -> URL {

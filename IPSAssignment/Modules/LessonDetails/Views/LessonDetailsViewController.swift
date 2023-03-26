@@ -228,12 +228,13 @@ private extension LessonDetailsViewController {
     private func setupDownloadVideoButtonConstraint() {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
-        let rootView = windowScene?.windows.first?.rootViewController?.view
+        guard let rootView = windowScene?.windows.first?.rootViewController?.view else { return }
+    
         downloadVideoButton.translatesAutoresizingMaskIntoConstraints = false
-        rootView?.addSubview(downloadVideoButton)
+        rootView.addSubview(downloadVideoButton)
         NSLayoutConstraint.activate([
-            downloadVideoButton.topAnchor.constraint(equalTo: rootView!.topAnchor, constant: 59),
-            downloadVideoButton.trailingAnchor.constraint(equalTo: rootView!.trailingAnchor, constant: 16),
+            downloadVideoButton.topAnchor.constraint(equalTo: rootView.safeAreaLayoutGuide.topAnchor, constant: 0),
+            downloadVideoButton.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: 16),
             downloadVideoButton.heightAnchor.constraint(equalToConstant: 40),
             downloadVideoButton.widthAnchor.constraint(equalToConstant: 160)
         ])

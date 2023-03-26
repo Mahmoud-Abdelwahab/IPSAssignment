@@ -21,7 +21,6 @@ class LessonDetailsViewModel: ObservableObject {
     private var cancelDownloadCallBack: (()-> Void)?
     private let updateIsVideoCachedCallBack: ((Int)-> Void)
     private var subscriptions = Set<AnyCancellable>()
-    private let isConnected = InternetConnectionChecker.isConnectedToInternet()
     
     init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
         self.currentLesson = currentLesson
@@ -55,7 +54,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
     }
     
     func downloadButtonDidTapped() {
-        if isConnected {
+        if InternetConnectionChecker.isConnectedToInternet() {
             Task {
                 do {
                     try await downloadVideo()
@@ -76,7 +75,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelInput {
         if currentLesson.isVideoCashed {
             guard let  videoUrl = getVideoURLFromCache()  else { return }
             videoURLSubject.send(videoUrl)
-        } else if isConnected  {
+        } else if InternetConnectionChecker.isConnectedToInternet()  {
             videoURLSubject.send(currentLesson.videoURL)
         } else {
             videoURLSubject.send(nil)
@@ -137,9 +136,10 @@ extension LessonDetailsViewModel {
     
     @MainActor
     func downloadVideo() async throws {
-        //   let dummyShourtVideoURL = URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!
+          let dummyShourtVideoURL = URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!
 #warning("DOn't forget to remove this dummy data")
-        let download = DownloadManager(url: currentLesson.videoURL )
+        // currentLesson.videoURL
+        let download = DownloadManager(url: dummyShourtVideoURL )
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
@@ -160,7 +160,6 @@ private extension LessonDetailsViewModel {
             progressSubject.send(progress)
         case let .success(url):
             progressSubject.send(1)
-            downloadButtonStyleSubject.send(.offline)
             saveFile(at: url)
         }
     }
@@ -168,9 +167,11 @@ private extension LessonDetailsViewModel {
     func saveFile(at url: URL) {
         do {
             try IPSFileManager.shared.saveVideoToFile(at: url, fileName: "\(currentLesson.id).mp4")
+            downloadButtonStyleSubject.send(.offline)
             updateIsVideoDownloadedFlagInCache()
             updateIsVideoCachedCallBack(currentLesson.id)
         } catch {
+            showErrorSubject.send("Something went wrong while downloading")
             debugPrint(error.localizedDescription)
         }
     }
