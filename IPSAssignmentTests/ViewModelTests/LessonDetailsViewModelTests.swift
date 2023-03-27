@@ -99,7 +99,7 @@ final class LessonDetailsViewModelTests: XCTestCase {
 }
 
 private extension LessonDetailsViewModelTests {
-     func updateIsVideoCached(lessonId: Int) {
-        debugPrint(lessonId)
+     func updateIsVideoCached(lesson: Lesson) {
+        debugPrint(lesson)
     }
 }
