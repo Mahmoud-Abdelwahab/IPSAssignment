@@ -41,3 +41,6 @@ open using intenet connection data , if the video not cached an no internet i sh
 ![simulator_screenshot_1AE48E56-707C-466C-81F5-CA580D8137F9](https://user-images.githubusercontent.com/17813115/227916021-32c8a36f-2804-4d94-9cb7-385a44ec48e9.png)
 ![simulator_screenshot_9A454DA8-42F6-401D-85BE-0D218E4D4B31](https://user-images.githubusercontent.com/17813115/227915846-e428b5ae-d97f-4535-96d5-426986413836.png)
 ![simulator_screenshot_0B236D1C-B9FB-47E1-AA1F-0AE648F97C5E](https://user-images.githubusercontent.com/17813115/227915543-1c9383f5-6cfa-4ee4-b2e5-36173fec2478.png)
+![simulator_screenshot_03922E25-27AD-4B71-8D8A-7FF0645694E6](https://user-images.githubusercontent.com/17813115/228054293-48618e11-2136-45b6-b132-c1c509195bb3.png)
+
+
