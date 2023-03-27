@@ -48,7 +48,7 @@ struct LessonsView: View {
             }
         }
         .task {
-           await viewModel.fetchLessons()
+            await viewModel.fetchLessons()
         }
     }
 }
