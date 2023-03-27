@@ -13,9 +13,9 @@ struct LessonDetailsWrapper: UIViewControllerRepresentable {
     
     let currentLesson: Lesson
     let lessons: [Lesson]
-    let updateIsVideoCachedCallBack: ((Int)-> Void)
+    let updateIsVideoCachedCallBack: ((Lesson)-> Void)
     
-    init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
+    init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Lesson)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
         self.updateIsVideoCachedCallBack = updateIsVideoCachedCallBack

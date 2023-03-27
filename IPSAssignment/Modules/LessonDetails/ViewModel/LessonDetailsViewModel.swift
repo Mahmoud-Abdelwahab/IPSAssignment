@@ -19,10 +19,10 @@ class LessonDetailsViewModel: ObservableObject {
     private let videoURLSubject = PassthroughSubject<URL?, Never>()
     private let showErrorSubject = PassthroughSubject<String, Never>()
     private var cancelDownloadCallBack: (()-> Void)?
-    private let updateIsVideoCachedCallBack: ((Int)-> Void)
+    private let updateIsVideoCachedCallBack: ((Lesson)-> Void)
     private var subscriptions = Set<AnyCancellable>()
     
-    init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
+    init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Lesson)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
         self.updateIsVideoCachedCallBack = updateIsVideoCachedCallBack
@@ -164,7 +164,7 @@ private extension LessonDetailsViewModel {
         progressSubject.send(1)
         downloadButtonStyleSubject.send(.offline)
         updateIsVideoDownloadedFlagInCache()
-        updateIsVideoCachedCallBack(currentLesson.id)
+        updateIsVideoCachedCallBack(currentLesson)
     }
     
     func getVideoURLFromCache() -> URL? {
