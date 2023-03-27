@@ -12,7 +12,7 @@ import AVKit
 import Combine
 
 class LessonDetailsViewController: UIViewController {
-
+    
     // MARK: UI Elements
     
     private lazy var scrollView: UIScrollView = {
@@ -83,7 +83,7 @@ class LessonDetailsViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-
+    
     private lazy var nextButtonContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -118,13 +118,13 @@ class LessonDetailsViewController: UIViewController {
     }
     
     // MARK: Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewsConstraints()
         setupViewModelInputs()
         setupViewModelOutputs()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -232,7 +232,7 @@ private extension LessonDetailsViewController {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         guard let rootView = windowScene?.windows.first?.rootViewController?.view else { return }
-    
+        
         downloadVideoButton.translatesAutoresizingMaskIntoConstraints = false
         rootView.addSubview(downloadVideoButton)
         NSLayoutConstraint.activate([
@@ -248,11 +248,11 @@ private extension LessonDetailsViewController {
 
 private extension LessonDetailsViewController {
     
-    private func setupViewModelInputs() {
+    func setupViewModelInputs() {
         viewModel.viewDidLoad()
     }
     
-    private func setupViewModelOutputs() {
+    func setupViewModelOutputs() {
         viewModel
             .currentLessonPublisher
             .receive(on: DispatchQueue.main)
@@ -296,7 +296,7 @@ private extension LessonDetailsViewController {
             .store(in: &subscriptions)
     }
     
-    private func playVideo(_ url: URL?) {
+    func playVideo(_ url: URL?) {
         guard let url else {
             showAlert(with: "No video found please connect to the internet")
             return
@@ -304,14 +304,14 @@ private extension LessonDetailsViewController {
         presentVideoPlayer(with: url)
     }
     
-    private func stylingDownloadButton(with style: DownloadButtonStyle) {
+    func stylingDownloadButton(with style: DownloadButtonStyle) {
         downloadVideoButton.tintColor = style.tintColor
         downloadVideoButton.setTitle(style.title, for: .normal)
         downloadVideoButton.setImage(style.image, for: .normal)
         downloadVideoButton.isUserInteractionEnabled =  style == .offline ? false : true
     }
     
-    private func configureUI(with lesson: Lesson?) {
+    func configureUI(with lesson: Lesson?) {
         guard let lesson else { return }
         videoImageView
             .kf.setImage(with: lesson.thumbnailURL)
@@ -320,7 +320,7 @@ private extension LessonDetailsViewController {
         currentVideoURL = lesson.videoURL
     }
     
-   private func showDownloadingProgressAlert() {
+    func showDownloadingProgressAlert() {
         let alertController = UIAlertController(title: "Downloading...🚀", message: nil, preferredStyle: .alert)
         let progressBar : UIProgressView = UIProgressView(progressViewStyle: .default)
         progressBar.setProgress(0, animated: true)
@@ -346,7 +346,7 @@ private extension LessonDetailsViewController {
         }
     }
     
-    private func presentVideoPlayer(with url: URL) {
+    func presentVideoPlayer(with url: URL) {
         let player = AVPlayer(url: url)
         let avPlayerViewController = AVPlayerViewController()
         avPlayerViewController.player = player
