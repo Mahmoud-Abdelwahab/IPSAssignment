@@ -10,20 +10,22 @@ import SwiftUI
 /// ٍٍٍThis `Wrapper` For Wrapping the the UIKIT ViewController  into SwiftUI View
 /// 
 struct LessonDetailsWrapper: UIViewControllerRepresentable {
+    
     let currentLesson: Lesson
     let lessons: [Lesson]
     let updateIsVideoCachedCallBack: ((Int)-> Void)
+    
     init(currentLesson: Lesson, lessons: [Lesson], updateIsVideoCachedCallBack: @escaping ((Int)-> Void)) {
         self.currentLesson = currentLesson
         self.lessons = lessons
         self.updateIsVideoCachedCallBack = updateIsVideoCachedCallBack
     }
+    
     func makeUIViewController(context: Context) -> UIViewController {
         let viewController = LessonDetailsViewController(viewModel: LessonDetailsViewModel(currentLesson: currentLesson, lessons: lessons, updateIsVideoCachedCallBack: updateIsVideoCachedCallBack))
         return viewController
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        print(context)
     }
 }

@@ -12,7 +12,7 @@ class LessonDetailsViewModel: ObservableObject {
     private var currentLesson: Lesson
     private let lessons: [Lesson]
     private let currentLessonSubject = CurrentValueSubject<Lesson?, Never>(nil)
-    private let nextButtonIsHiddenSubject = CurrentValueSubject<Bool, Never>(true)
+    private let nextButtonIsHiddenSubject = CurrentValueSubject<Bool, Never>(false)
     private let progressSubject = PassthroughSubject<Float, Never>()
     private let showDownloadingAlertSubject = PassthroughSubject<Void, Never>()
     private var downloadButtonStyleSubject = CurrentValueSubject<DownloadButtonStyle, Never>(.download)
@@ -116,11 +116,11 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
     }
 }
 
-// MARK: Private handlers
+// MARK: Helpers
 
-extension LessonDetailsViewModel {
+ extension LessonDetailsViewModel {
     
-    private func shouldShowNextButton() {
+    func shouldShowNextButton() {
         if let currentLessonIndex = getIndexOfCurrentLesson() {
             let lastLessonIndex = lessons.count - 1
             let isHidden = currentLessonIndex < lastLessonIndex ? false : true
@@ -130,16 +130,13 @@ extension LessonDetailsViewModel {
         }
     }
     
-    private func getIndexOfCurrentLesson() -> Int? {
+     func getIndexOfCurrentLesson() -> Int? {
         lessons.firstIndex(of: currentLesson)
     }
     
     @MainActor
     func downloadVideo() async throws {
-          let dummyShourtVideoURL = URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!
-#warning("DOn't forget to remove this dummy data")
-        // currentLesson.videoURL
-        let download = DownloadManager(url: dummyShourtVideoURL )
+        let download = DownloadManager(url: currentLesson.videoURL)
         cancelDownloadCallBack = {
             download.cancelProcess()
         }

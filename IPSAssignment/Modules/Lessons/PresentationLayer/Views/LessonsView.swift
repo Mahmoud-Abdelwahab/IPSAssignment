@@ -10,7 +10,6 @@ import CoreData
 
 
 struct LessonsView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
     @StateObject private var viewModel: LessonsViewModel
     init(viewModel: LessonsViewModel) {
         self._viewModel =  StateObject(wrappedValue: viewModel)
@@ -30,7 +29,8 @@ struct LessonsView: View {
                             }.opacity(0.0)
                         LessonCellView(lesson: $lesson)
                     }
-                }.refreshable {
+                }
+                .refreshable {
                     Task {
                         await viewModel.fetchLessons()
                     }
