@@ -65,11 +65,11 @@ extension DownloadManager: URLSessionDownloadDelegate {
 }
 
 extension DownloadManager {
+    
     private func getDocumentsDirectory() -> URL {
         let url =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return url
     }
-    
     
     func saveVideoToFile(at url: URL)   {
         let destinationURL = getDocumentsDirectory().appendingPathComponent(videoName)
@@ -81,24 +81,6 @@ extension DownloadManager {
             debugPrint("File moved successfully ✅")
         } catch {
             debugPrint("Error moving file:", error.localizedDescription, "❌")
-            //            throw error
         }
     }
-    
-    
-    func getVideoURLFromCache(fileName: String, fileExtension: String) throws -> URL {
-        let documentsUrl = getDocumentsDirectory()
-        do {
-            let videoFiles = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == videoName  }
-            if let videoUrl = videoFiles.first {
-                return videoUrl
-            }
-        } catch {
-            debugPrint("❌: Error while enumerating files \(documentsUrl.path): \(error.localizedDescription)")
-            throw IPSErrors.withMessage("\(error.localizedDescription)")
-        }
-        debugPrint("❌: File not found")
-        throw IPSErrors.fileNotFound
-    }
-    
 }
