@@ -9,6 +9,7 @@ import Foundation
 
 class DownloadManager: NSObject {
     let url: URL
+    let videoName: String
     private lazy var downloadSession: URLSession = {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: nil, delegateQueue: .main)
@@ -22,8 +23,9 @@ class DownloadManager: NSObject {
         return task
     }()
     
-    init(url: URL) {
+    init(url: URL, videoName: String) {
         self.url = url
+        self.videoName = videoName
     }
     
     var events: AsyncStream<Event> {
@@ -44,7 +46,7 @@ class DownloadManager: NSObject {
 extension DownloadManager {
     enum Event {
         case progress(currentBytes: Int64, totalBytes: Int64)
-        case success(url: URL)
+        case success
     }
 }
 
@@ -56,7 +58,47 @@ extension DownloadManager: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        continuation?.yield(.success(url: location))
+        saveVideoToFile(at: location)
+        continuation?.yield(.success)
         continuation?.finish()
     }
+}
+
+extension DownloadManager {
+    private func getDocumentsDirectory() -> URL {
+        let url =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return url
+    }
+    
+    
+    func saveVideoToFile(at url: URL)   {
+        let destinationURL = getDocumentsDirectory().appendingPathComponent(videoName)
+        do {
+            if  FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
+            }
+            try FileManager.default.copyItem(at: url, to: destinationURL)
+            debugPrint("File moved successfully ✅")
+        } catch {
+            debugPrint("Error moving file:", error.localizedDescription, "❌")
+            //            throw error
+        }
+    }
+    
+    
+    func getVideoURLFromCache(fileName: String, fileExtension: String) throws -> URL {
+        let documentsUrl = getDocumentsDirectory()
+        do {
+            let videoFiles = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == "mp4" && $0.lastPathComponent == videoName  }
+            if let videoUrl = videoFiles.first {
+                return videoUrl
+            }
+        } catch {
+            debugPrint("❌: Error while enumerating files \(documentsUrl.path): \(error.localizedDescription)")
+            throw IPSErrors.withMessage("\(error.localizedDescription)")
+        }
+        debugPrint("❌: File not found")
+        throw IPSErrors.fileNotFound
+    }
+    
 }

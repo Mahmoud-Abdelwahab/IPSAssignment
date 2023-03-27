@@ -118,7 +118,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
 
 // MARK: Helpers
 
- extension LessonDetailsViewModel {
+extension LessonDetailsViewModel {
     
     func shouldShowNextButton() {
         if let currentLessonIndex = getIndexOfCurrentLesson() {
@@ -130,13 +130,13 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
         }
     }
     
-     func getIndexOfCurrentLesson() -> Int? {
+    func getIndexOfCurrentLesson() -> Int? {
         lessons.firstIndex(of: currentLesson)
     }
     
     @MainActor
     func downloadVideo() async throws {
-        let download = DownloadManager(url: currentLesson.videoURL)
+        let download = DownloadManager(url: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!, videoName: "\(currentLesson.id).mp4")
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
@@ -155,22 +155,17 @@ private extension LessonDetailsViewModel {
             print(current,total)
             let progress = Float(current) / Float(total)
             progressSubject.send(progress)
-        case let .success(url):
+        case .success:
             progressSubject.send(1)
-            saveFile(at: url)
+            updateVideoStateInCache()
         }
     }
     
-    func saveFile(at url: URL) {
-        do {
-            try IPSFileManager.shared.saveVideoToFile(at: url, fileName: "\(currentLesson.id).mp4")
-            downloadButtonStyleSubject.send(.offline)
-            updateIsVideoDownloadedFlagInCache()
-            updateIsVideoCachedCallBack(currentLesson.id)
-        } catch {
-            showErrorSubject.send("Something went wrong while downloading")
-            debugPrint(error.localizedDescription)
-        }
+    func updateVideoStateInCache() {
+        progressSubject.send(1)
+        downloadButtonStyleSubject.send(.offline)
+        updateIsVideoDownloadedFlagInCache()
+        updateIsVideoCachedCallBack(currentLesson.id)
     }
     
     func getVideoURLFromCache() -> URL? {
