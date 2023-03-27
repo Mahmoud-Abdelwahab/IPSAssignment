@@ -100,7 +100,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
     }
     
     var showDownloadingAlertPublisher: AnyPublisher<Void, Never> {
-        showDownloadingAlertSubject.first().eraseToAnyPublisher()
+        showDownloadingAlertSubject.eraseToAnyPublisher()
     }
     
     var downloadButtonStylePublisher: AnyPublisher<DownloadButtonStyle, Never> {
@@ -118,7 +118,7 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
 
 // MARK: Helpers
 
- extension LessonDetailsViewModel {
+extension LessonDetailsViewModel {
     
     func shouldShowNextButton() {
         if let currentLessonIndex = getIndexOfCurrentLesson() {
@@ -130,18 +130,18 @@ extension LessonDetailsViewModel: LessonDetailsViewModelOutput {
         }
     }
     
-     func getIndexOfCurrentLesson() -> Int? {
+    func getIndexOfCurrentLesson() -> Int? {
         lessons.firstIndex(of: currentLesson)
     }
     
     @MainActor
     func downloadVideo() async throws {
-        let download = DownloadManager(url: currentLesson.videoURL)
+        let download = DownloadManager(url: currentLesson.videoURL, videoName: "\(currentLesson.id).mp4")
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
+        showDownloadingAlertSubject.send(())
         for await event in download.events {
-            showDownloadingAlertSubject.send(())
             process(event)
         }
     }
@@ -155,22 +155,16 @@ private extension LessonDetailsViewModel {
             print(current,total)
             let progress = Float(current) / Float(total)
             progressSubject.send(progress)
-        case let .success(url):
-            progressSubject.send(1)
-            saveFile(at: url)
+        case .success:
+            updateVideoStateInCache()
         }
     }
     
-    func saveFile(at url: URL) {
-        do {
-            try IPSFileManager.shared.saveVideoToFile(at: url, fileName: "\(currentLesson.id).mp4")
-            downloadButtonStyleSubject.send(.offline)
-            updateIsVideoDownloadedFlagInCache()
-            updateIsVideoCachedCallBack(currentLesson.id)
-        } catch {
-            showErrorSubject.send("Something went wrong while downloading")
-            debugPrint(error.localizedDescription)
-        }
+    func updateVideoStateInCache() {
+        progressSubject.send(1)
+        downloadButtonStyleSubject.send(.offline)
+        updateIsVideoDownloadedFlagInCache()
+        updateIsVideoCachedCallBack(currentLesson.id)
     }
     
     func getVideoURLFromCache() -> URL? {
