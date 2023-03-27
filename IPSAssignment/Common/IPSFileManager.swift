@@ -7,19 +7,18 @@
 
 import Foundation
 
-struct IPSFileManager {
+class IPSFileManager {
     
     // MARK: - Properties
     
     static let shared = IPSFileManager()
-    private let fileManager = FileManager.default
     
     private init() {}
     
     // MARK: - Public Methods
     
     private func getDocumentsDirectory() -> URL {
-        let url =  fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let url =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return url
     }
     
@@ -27,10 +26,10 @@ struct IPSFileManager {
     func saveVideoToFile(at url: URL, fileName: String) throws  {
         let destinationURL = getDocumentsDirectory().appendingPathComponent(fileName)
         do {
-            if  fileManager.fileExists(atPath: destinationURL.path) {
-                try fileManager.removeItem(at: destinationURL)
+            if  FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
             }
-            try fileManager.copyItem(at: url, to: destinationURL)
+            try FileManager.default.copyItem(at: url, to: destinationURL)
             debugPrint("File moved successfully ✅")
         } catch {
             debugPrint("Error moving file:", error.localizedDescription, "❌")
@@ -41,7 +40,7 @@ struct IPSFileManager {
     func getVideoURLFromCache(fileName: String, fileExtension: String) throws -> URL {
         let documentsUrl = getDocumentsDirectory()
         do {
-            let videoFiles = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == fileExtension && $0.lastPathComponent == fileName  }
+            let videoFiles = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).filter{ $0.pathExtension == fileExtension && $0.lastPathComponent == fileName  }
             if let videoUrl = videoFiles.first {
                 return videoUrl
             }
