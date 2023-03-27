@@ -20,7 +20,7 @@ struct LessonsView: View {
                 List($viewModel.lessons, id: \.id) { $lesson in
                     ZStack(alignment: .leading) {
                         NavigationLink(destination: LessonDetailsWrapper(currentLesson: lesson,
-                                                                         lessons: viewModel.lessons, updateIsVideoCachedCallBack: {_ in 
+                                                                         lessons: viewModel.lessons, updateIsVideoCachedCallBack: {_ in
                             viewModel.updateDownloadedLessonIsCachedFlag(lesson)
                         })
                             .background(IPSColors.mainBackgroundColor)
@@ -48,7 +48,7 @@ struct LessonsView: View {
             }
         }
         .task {
-           await viewModel.fetchLessons()
+            await viewModel.fetchLessons()
         }
     }
 }
