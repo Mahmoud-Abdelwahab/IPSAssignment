@@ -136,7 +136,7 @@ extension LessonDetailsViewModel {
     
     @MainActor
     func downloadVideo() async throws {
-        let download = DownloadManager(url: URL(string: "https://static.vecteezy.com/system/resources/previews/011/111/903/mp4/a-large-rooster-with-a-red-tuft-in-the-village-young-red-cockerel-rhode-island-red-barnyard-mix-beautiful-of-an-orange-rhode-island-rooster-on-a-small-farm-multicolored-feathers-video.mp4")!, videoName: "\(currentLesson.id).mp4")
+        let download = DownloadManager(url: currentLesson.videoURL, videoName: "\(currentLesson.id).mp4")
         cancelDownloadCallBack = {
             download.cancelProcess()
         }
