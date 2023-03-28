@@ -48,9 +48,6 @@
 		29E7CE7F29CA646D00C873CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7E29CA646D00C873CC /* Preview Assets.xcassets */; };
 		29E7CE8129CA646D00C873CC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE8029CA646D00C873CC /* Persistence.swift */; };
 		29E7CE8429CA646D00C873CC /* IPSAssignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE8229CA646D00C873CC /* IPSAssignment.xcdatamodeld */; };
-		29E7CE8E29CA646E00C873CC /* IPSAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE8D29CA646E00C873CC /* IPSAssignmentTests.swift */; };
-		29E7CE9829CA646E00C873CC /* IPSAssignmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE9729CA646E00C873CC /* IPSAssignmentUITests.swift */; };
-		29E7CE9A29CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE9929CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,10 +111,7 @@
 		29E7CE8029CA646D00C873CC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		29E7CE8329CA646D00C873CC /* IPSAssignment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IPSAssignment.xcdatamodel; sourceTree = "<group>"; };
 		29E7CE8929CA646E00C873CC /* IPSAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPSAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		29E7CE8D29CA646E00C873CC /* IPSAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentTests.swift; sourceTree = "<group>"; };
 		29E7CE9329CA646E00C873CC /* IPSAssignmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPSAssignmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		29E7CE9729CA646E00C873CC /* IPSAssignmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentUITests.swift; sourceTree = "<group>"; };
-		29E7CE9929CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				2939CBF629D09E3F0081243C /* LessonsRemoteDataSourceMock.swift */,
-				29E7CE8D29CA646E00C873CC /* IPSAssignmentTests.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -463,8 +456,6 @@
 		29E7CE9629CA646E00C873CC /* IPSAssignmentUITests */ = {
 			isa = PBXGroup;
 			children = (
-				29E7CE9729CA646E00C873CC /* IPSAssignmentUITests.swift */,
-				29E7CE9929CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift */,
 				2939CBFB29D1906E0081243C /* LessonsViewUITests.swift */,
 				29A949DB29D19BED0095ABC2 /* LessonsDetailsUITests.swift */,
 			);
@@ -649,7 +640,6 @@
 				2939CBF729D09E3F0081243C /* LessonsRemoteDataSourceMock.swift in Sources */,
 				2939CBF329D09B390081243C /* LessonsViewModelTests.swift in Sources */,
 				2939CBF529D09C700081243C /* LessonDetailsViewModelTests.swift in Sources */,
-				29E7CE8E29CA646E00C873CC /* IPSAssignmentTests.swift in Sources */,
 				2939CBFA29D114A50081243C /* TestKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,8 +650,6 @@
 			files = (
 				29A949DC29D19BED0095ABC2 /* LessonsDetailsUITests.swift in Sources */,
 				2939CBFC29D1906E0081243C /* LessonsViewUITests.swift in Sources */,
-				29E7CE9A29CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift in Sources */,
-				29E7CE9829CA646E00C873CC /* IPSAssignmentUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
