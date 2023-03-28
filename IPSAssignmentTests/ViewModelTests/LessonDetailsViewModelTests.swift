@@ -33,8 +33,8 @@ final class LessonDetailsViewModelTests: XCTestCase {
         let expectedNextLessonIndex = 4
         
         // Then
-        sut.currentLessonPublisher.collectNext(2).sink { lesson in
-            let lessonIndex = LessonsMocks.lessons.firstIndex(of: lesson[1]!)
+        sut.currentLessonPublisher.dropFirst(2).sink { lesson in
+            let lessonIndex = LessonsMocks.lessons.firstIndex(of: lesson!)
             
             XCTAssertEqual(lessonIndex,expectedNextLessonIndex)
         }.store(in: &subscriptions)

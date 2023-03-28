@@ -41,6 +41,7 @@
 		298DD2EC29CED20600DC6884 /* InternetConnectionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298DD2EB29CED20600DC6884 /* InternetConnectionChecker.swift */; };
 		299751F529CFB2D600C240D8 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299751F429CFB2D600C240D8 /* DownloadManager.swift */; };
 		29A949DC29D19BED0095ABC2 /* LessonsDetailsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A949DB29D19BED0095ABC2 /* LessonsDetailsUITests.swift */; };
+		29ADB02729D2D48300AAFB7E /* IPSFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ADB02629D2D48300AAFB7E /* IPSFileManager.swift */; };
 		29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */; };
 		29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE7929CA646B00C873CC /* LessonsView.swift */; };
 		29E7CE7C29CA646D00C873CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29E7CE7B29CA646D00C873CC /* Assets.xcassets */; };
@@ -50,7 +51,6 @@
 		29E7CE8E29CA646E00C873CC /* IPSAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE8D29CA646E00C873CC /* IPSAssignmentTests.swift */; };
 		29E7CE9829CA646E00C873CC /* IPSAssignmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE9729CA646E00C873CC /* IPSAssignmentUITests.swift */; };
 		29E7CE9A29CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7CE9929CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift */; };
-		29F639E429CFE171007521D6 /* IPSFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F639E329CFE171007521D6 /* IPSFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +105,7 @@
 		298DD2EB29CED20600DC6884 /* InternetConnectionChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionChecker.swift; sourceTree = "<group>"; };
 		299751F429CFB2D600C240D8 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		29A949DB29D19BED0095ABC2 /* LessonsDetailsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsDetailsUITests.swift; sourceTree = "<group>"; };
+		29ADB02629D2D48300AAFB7E /* IPSFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPSFileManager.swift; sourceTree = "<group>"; };
 		29E7CE7429CA646B00C873CC /* IPSAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPSAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE7729CA646B00C873CC /* IPSAssignmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentApp.swift; sourceTree = "<group>"; };
 		29E7CE7929CA646B00C873CC /* LessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsView.swift; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		29E7CE9329CA646E00C873CC /* IPSAssignmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPSAssignmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E7CE9729CA646E00C873CC /* IPSAssignmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentUITests.swift; sourceTree = "<group>"; };
 		29E7CE9929CA646E00C873CC /* IPSAssignmentUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSAssignmentUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		29F639E329CFE171007521D6 /* IPSFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPSFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,10 +383,10 @@
 		298DD2E029CE2CE700DC6884 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				29ADB02629D2D48300AAFB7E /* IPSFileManager.swift */,
 				298DD2E129CE2CF800DC6884 /* CoreDataManager.swift */,
 				298DD2E829CEAAE400DC6884 /* ErrorView.swift */,
 				299751F429CFB2D600C240D8 /* DownloadManager.swift */,
-				29F639E329CFE171007521D6 /* IPSFileManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -625,11 +625,11 @@
 				298DD2D429CD54DF00DC6884 /* IPSErrors.swift in Sources */,
 				292E68DC29CB378F00BB8293 /* LessonDetailsWrapper.swift in Sources */,
 				298DD2C829CD4F5D00DC6884 /* Lesson.swift in Sources */,
-				29F639E429CFE171007521D6 /* IPSFileManager.swift in Sources */,
 				29E7CE8129CA646D00C873CC /* Persistence.swift in Sources */,
 				29E7CE7A29CA646B00C873CC /* LessonsView.swift in Sources */,
 				298DD2D629CD55E100DC6884 /* LessonsRespons.swift in Sources */,
 				29E7CE7829CA646B00C873CC /* IPSAssignmentApp.swift in Sources */,
+				29ADB02729D2D48300AAFB7E /* IPSFileManager.swift in Sources */,
 				29E7CE8429CA646D00C873CC /* IPSAssignment.xcdatamodeld in Sources */,
 				298DD2C629CD4DCA00DC6884 /* LessonsRepository.swift in Sources */,
 				292E68C829CB2C9500BB8293 /* LessonsViewModel.swift in Sources */,
