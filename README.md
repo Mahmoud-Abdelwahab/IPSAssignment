@@ -43,4 +43,4 @@ open using intenet connection data , if the video not cached an no internet i sh
 ![simulator_screenshot_0B236D1C-B9FB-47E1-AA1F-0AE648F97C5E](https://user-images.githubusercontent.com/17813115/227915543-1c9383f5-6cfa-4ee4-b2e5-36173fec2478.png)
 ![simulator_screenshot_03922E25-27AD-4B71-8D8A-7FF0645694E6](https://user-images.githubusercontent.com/17813115/228054293-48618e11-2136-45b6-b132-c1c509195bb3.png)
 
-
+https://ipsmedia.notion.site/iOS-Developer-Test-36ec3cda5f95461ea78897fed1b2d080
